@@ -30,10 +30,15 @@ body {
 	line-height: 1.5;
 }
 
+.button-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+}
 
-#load-items{
-  display: block;
-  margin: 0 auto;
+.load-items{
+  margin: 0 10px;
 }
 
 #item-to-order{

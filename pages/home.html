@@ -11,7 +11,7 @@
 		<h1>Online Shop</h1>
 		<nav>
 			<ul>
-				<li><a href="#">Home</a></li>
+				<li><a href="home.html">Home</a></li>
 				<li><a href="shopping_cart.html">Shopping Cart</a></li>
 				<li><a href="../index.html">About</a></li>
 				<li><a href="#">Contact</a></li>
@@ -27,12 +27,16 @@
 		<div class = "item">
 		<section class="items">
 		</section>
-		<button class="btn" id = "load-items" onclick="loadItems()">Load more</button>
+			<div class="button-container">
+				<button class="btn load-items" onclick="loadItems()">Load more</button>
+				<button class="btn load-items"  onclick="loadPrevItems()">Load previous items</button>
+			</div>
 		</div>
 	</main>
 	<footer>
 		<p>&copy; 2023 Online Shop</p>
 	</footer>
+	<script src="../scripts/customAlert.js"></script>
 	<script src = "../scripts/buttonControl.js"></script>
 	<script src = "../scripts/items.js"></script>
 </body>
