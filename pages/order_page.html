@@ -15,9 +15,10 @@
 				<li><a href="shopping_cart.html">Shopping Cart</a></li>
 				<li><a href="../index.html">About</a></li>
 				<li><a href="#">Contact</a></li>
-				<li class = "auth-buttons"">
-					<a href="login.html">Login</a>
-					<a href="register.html">Register</a>
+				<li class = "auth-buttons">
+					<a id="login-btn" href="login.html">Login</a>
+					<a id="register-btn" href="register.html">Register</a>
+					<a id="logout-btn" href="login.html">Logout</a>
 				</li>
 			</ul>
 		</nav>
@@ -35,8 +36,8 @@
 			<form>
 				<label for="quantity">Product quantity:</label>
 				<input type="text" id="order-quantity" name="OrderQuantity" required>
-				<button type="submit", class="btn"">Order product</button>
-				<button class="btn" onclick="location.href='home.html'"">Cancel</button>
+				<button type="submit", class="btn">Order product</button>
+				<button class="btn" onclick="location.href='home.html'">Cancel</button>
 			</form>
 		</div>
 	</main>
@@ -44,5 +45,6 @@
 	<footer>
 		<p>&copy; 2023 Online Shop</p>
 	</footer>
+	<script src = "../scripts/buttonControl.js"></script>
 </body>
 </html>
