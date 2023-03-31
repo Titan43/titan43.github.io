@@ -10,8 +10,12 @@ function getExpirationTime(jwt) {
 }
 
 if (isTokenValid()) {
-    document.getElementById('login-btn').style.display = 'none';
-    document.getElementById('register-btn').style.display = 'none';
+    const loginButton = document.getElementById('login-btn');
+    const registerButton = document.getElementById('register-btn');
+    if(loginButton && registerButton){
+        loginButton.style.display = 'none';
+        registerButton.style.display = 'none';
+    }
 }
 else{
     document.getElementById('logout-btn').style.display = 'none';
