@@ -5,7 +5,7 @@ function showAlert(message) {
     alert.style.bottom = '20px';
     alert.style.left = '20px';
     alert.style.padding = '20px';
-    alert.style.backgroundColor = '#333';
+    alert.style.backgroundColor = '#8b0000';
     alert.style.color = 'white';
     alert.style.borderRadius = '5px';
     alert.style.boxShadow = '0 0 10px rgba(0, 0, 0, 0.3)';
@@ -78,8 +78,8 @@ form.addEventListener('submit', (event) => {
     }
   })
   .then(data => {
-    document.cookie = 'token=${data.token}; path=/';
-    console.log('success')
+    document.cookie = `token=${data.token}; path=/`;
+    console.log('success');
   })
   .catch(error => {
     showAlert(error.message)
