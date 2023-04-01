@@ -8,14 +8,16 @@
 </head>
 <body>
 	<header>
-		<h1>Account</h1>
+		<h1>Product Order</h1>
 		<nav>
 			<ul>
 				<li><a href="home.html">Home</a></li>
 				<li><a href="shopping_cart.html">Shopping Cart</a></li>
 				<li><a href="../index.html">About</a></li>
-				<li><a href="#">Account</a></li>
+				<li><a href="Account.html">Account</a></li>
 				<li class = "auth-buttons">
+					<a id="login-btn" href="login.html">Login</a>
+					<a id="register-btn" href="register.html">Register</a>
 					<a id="logout-btn" href="login.html">Logout</a>
 				</li>
 			</ul>
@@ -24,17 +26,9 @@
 
 	<main>
 		<div class = "item">
-			<section class ="cart-items">
-				<article id="user">
-				</article>
-				<div class="button-container">
-					<a class="btn load-items" id="viewOrders" href="orders.html">View Orders</a>
-					<a class="btn load-items" id="viewUser" onclick="">View user data</a>
-					<a class="btn load-items" id="addProd" href="createProduct.html">Add product</a>
-					<a class="btn load-items" id="changeProdQ" href="change_quantity.html">Change product quantity</a>
-					<a class="btn load-items" id="updateAcc" onclick="">Change data</a>
-					<a class="btn load-items remove" id="deleteAcc" onclick="">Delete account</a>
-				</div>
+			<section class = "cart-items">
+			<article id = "item-to-order">
+			</article>
 			</section>
 		</div>
 	</main>
@@ -44,7 +38,6 @@
 	</footer>
 	<script src="../scripts/customAlert.js"></script>
 	<script src = "../scripts/buttonControl.js"></script>
-	<script src="../scripts/userBuilder.js"></script>
-	<script src="../scripts/account.js"></script>
+	<script src="../scripts/orderView.js"></script>
 </body>
 </html>

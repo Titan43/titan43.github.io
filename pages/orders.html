@@ -3,12 +3,12 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Online Shop - Order Product</title>
+	<title>Online Shop - Cart Preview</title>
 	<link rel="stylesheet" href="../stylesheets/style.css">
 </head>
 <body>
 	<header>
-		<h1>Product Order</h1>
+		<h1>Shopping Cart</h1>
 		<nav>
 			<ul>
 				<li><a href="home.html">Home</a></li>
@@ -16,8 +16,6 @@
 				<li><a href="../index.html">About</a></li>
 				<li><a href="Account.html">Account</a></li>
 				<li class = "auth-buttons">
-					<a id="login-btn" href="login.html">Login</a>
-					<a id="register-btn" href="register.html">Register</a>
 					<a id="logout-btn" href="login.html">Logout</a>
 				</li>
 			</ul>
@@ -26,19 +24,12 @@
 
 	<main>
 		<div class = "item">
-			<section class = "items">
-			<article class="item" id = "item-to-order">
-				<h2>Product 3</h2>
-				<p>Description of Product 3.</p>
-				<p>$20.99</p>
-			</article>
-			</section>
-			<form>
-				<label for="quantity">Product quantity:</label>
-				<input type="text" id="order-quantity" name="OrderQuantity" required>
-				<button type="submit", class="btn">Order product</button>
-				<button class="btn remove" onclick="location.href='home.html'">Cancel</button>
-			</form>
+		<section class="cart-items">
+		</section>
+		<div class="button-container">
+			<button class="btn load-items" id="prevBtn" onclick="loadPrevItems()">Load previous items</button>
+			<button class="btn load-items" id="nextBtn" onclick="loadItems()">Load more</button>
+		</div>
 		</div>
 	</main>
 
@@ -47,6 +38,6 @@
 	</footer>
 	<script src="../scripts/customAlert.js"></script>
 	<script src = "../scripts/buttonControl.js"></script>
-	<script src="../scripts/orderView.js"></script>
+	<script src="../scripts/orders.js"></script>
 </body>
 </html>
