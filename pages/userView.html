@@ -3,12 +3,12 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Online Shop - Order Product</title>
+	<title>Online Shop - User view</title>
 	<link rel="stylesheet" href="../stylesheets/style.css">
 </head>
 <body>
 	<header>
-		<h1>Product Order</h1>
+		<h1>User view</h1>
 		<nav>
 			<ul>
 				<li><a href="home.html">Home</a></li>
@@ -27,17 +27,13 @@
 	<main>
 		<div class = "item">
 			<section class = "items">
-			<article class="item" id = "item-to-order">
-				<h2>Product 3</h2>
-				<p>Description of Product 3.</p>
-				<p>$20.99</p>
-			</article>
+				<article id="item-to-order"></article>
 			</section>
 			<form>
-				<label for="quantity">Product quantity:</label>
-				<input type="text" id="order-quantity" name="OrderQuantity" required>
-				<button type="submit", class="btn">Order product</button>
-				<button class="btn remove" onclick="location.href='home.html'">Cancel</button>
+				<label for="username">Username:</label>
+				<input type="text" id="username" name="username" required>
+				<button type="submit", class="btn">Show user data</button>
+				<button class="btn remove" onclick="history.back()">Cancel</button>
 			</form>
 		</div>
 	</main>
@@ -47,6 +43,7 @@
 	</footer>
 	<script src="../scripts/customAlert.js"></script>
 	<script src = "../scripts/buttonControl.js"></script>
-	<script src="../scripts/orderView.js"></script>
+	<script src="../scripts/userBuilder.js"></script>
+	<script src="../scripts/userView.js"></script>
 </body>
 </html>
