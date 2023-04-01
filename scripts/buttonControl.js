@@ -18,5 +18,6 @@ if (isTokenValid()) {
     }
 }
 else{
-    document.getElementById('logout-btn').style.display = 'none';
+    const logoutButton = document.getElementById('logout-btn');
+    if(logoutButton) logoutButton.style.display = 'none';
 }
