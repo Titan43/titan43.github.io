@@ -21,23 +21,28 @@
 	<main>
 		<form>
 			<label for="Firstname">Firstname:</label>
-			<input type="text" id="firstname" name="Firstname">
+			<input type="text" id="firstname" name="fname">
 			<label for="Lastname">Lastname:</label>
-			<input type="text" id="lastname" name="Lastname">
+			<input type="text" id="lastname" name="sname">
 			<label for="Username">Username:</label>
-			<input type="text" id="username" name="Username" required>
+			<input type="text" id="username" name="username" required>
+			<label for="PhoneNumber">Phone number:</label>
+			<input type="text" id="phoneNumber" name="phoneNumber" required>
 			<label for="email">Email:</label>
 			<input type="email" id="email" name="email" required>
 			<label for="date-input">Date of birth:</label>
-			<input type="date" id="date-input" name="date" required>
+			<input type="date" id="date-input" name="dob" required>
 			<label for="password">Password:</label>
 			<input type="password" id="password" name="password" required>
-			<button type="submit", class="btn"">Register</button>
-			<button class="btn" onclick="location.href='login.html'"">Login</button>
+			<button type="submit", class="btn">Register</button>
+			<button class="btn" onclick="location.href='login.html'">Login</button>
 		</form>
 	</main>
 	<footer>
 		<p>&copy; 2023 Online Shop</p>
+		<script src="../scripts/customAlert.js"></script>
+		<script src="../scripts/loginHandler.js"></script>
+		<script src="../scripts/registration.js"></script>
 	</footer>
 </body>
 </html>
