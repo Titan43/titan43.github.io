@@ -1,4 +1,5 @@
 const itemsSection = document.querySelector('.cart-items');
+const totalElement = document.querySelector('.cart-total h3');
 const orderBtn = document.querySelector('.cart-total #orderBtn');
 const cancelOrderBtn = document.querySelector('.cart-total #cancelOrderBtn');
 
@@ -54,6 +55,61 @@ function createCartEntry(item) {
     return article;
 }
 
+function hideButtons(){
+    totalElement.textContent = 'You haven\'t ordered anything yet!';
+    orderBtn.style.display = 'none';
+    cancelOrderBtn.style.display = 'none';
+}
+
+function cancelOrder(){
+    const cookies = Object.fromEntries(document.cookie.split("; ").map(c => c.split("=")));
+    fetch('http://localhost:8080/api/v1/order/cancel', {
+        method: 'DELETE',
+        headers: {
+            'Authorization': `Bearer ${cookies.token}`
+        }
+    })
+    .then(response => {
+        if (!response.ok) {
+            return response.text().then(error => {throw new Error(error)});
+        }
+        return response.text();
+    })
+    .then(data => {
+        itemsSection.innerHTML="";
+        hideButtons();
+        showAlert(data, true);
+    })
+    .catch(error => {
+        showAlert(error.message);
+    });
+}
+
+function confirmOrder() {
+    const cookies = Object.fromEntries(document.cookie.split("; ").map(c => c.split("=")));
+    fetch("http://localhost:8080/api/v1/order/confirm", {
+      method: "GET",
+      headers: {
+        'Authorization': `Bearer ${cookies.token}`
+      }
+    })
+    .then(response => {
+        if (!response.ok) {
+            return response.text().then(error => {throw new Error(error)});
+        }
+        return response.text();
+    })
+    .then(data => {
+        itemsSection.innerHTML="";
+        hideButtons();
+        showAlert(data, true);
+    })
+    .catch(error => {
+        showAlert(error.message);
+    });
+
+  }
+
 let cookies = Object.fromEntries(document.cookie.split("; ").map(c => c.split("=")));
 fetch('http://localhost:8080/api/v1/order/myOrder', {
     method: 'GET',
@@ -70,11 +126,8 @@ fetch('http://localhost:8080/api/v1/order/myOrder', {
   })
   .then(data => {
 
-        const totalElement = document.querySelector('.cart-total h3');
         if(data.total_price == 0){
-            totalElement.textContent = 'You haven\'t ordered anything yet!';
-            orderBtn.style.display = 'none';
-            cancelOrderBtn.style.display = 'none';
+            hideButtons();
         }
         else{
             totalElement.textContent = `Total: ${data.total_price}`;
@@ -86,6 +139,11 @@ fetch('http://localhost:8080/api/v1/order/myOrder', {
         }
 
   }).catch(error => {
-    showAlert(error.message);
+    if(error.message == "Theres no pending order to show(CODE 404)"){
+        hideButtons();
+    }
+    else{
+        showAlert(error.message);
+    }
   });
   cookies = null;
