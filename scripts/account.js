@@ -45,6 +45,7 @@ function updateUserForm(oUsername) {
     const passwordInput = document.createElement('input');
     passwordInput.type = 'password';
     passwordInput.name = 'password';
+    passwordInput.required = true;
   
     const firstNameLabel = document.createElement('label');
     firstNameLabel.textContent = 'First Name:';
