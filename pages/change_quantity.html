@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Online Shop - Order Product</title>
+	<link rel="stylesheet" href="../stylesheets/style.css">
+</head>
+<body>
+	<header>
+		<h1>Product Order</h1>
+		<nav>
+			<ul>
+				<li><a href="home.html">Home</a></li>
+				<li><a href="shopping_cart.html">Shopping Cart</a></li>
+				<li><a href="../index.html">About</a></li>
+				<li><a href="Account.html">Contact</a></li>
+				<li class = "auth-buttons">
+					<a id="login-btn" href="login.html">Login</a>
+					<a id="register-btn" href="register.html">Register</a>
+					<a id="logout-btn" href="login.html">Logout</a>
+				</li>
+			</ul>
+		</nav>
+	</header>
+
+	<main>
+		<div class = "item">
+			<form id="order-form">
+				<label for="prodId">Product Id:</label>
+				<input type="text" id="prod-id" name="prodId" required>
+				<label for="quantity">Change quantity by:</label>
+				<input type="number" id="change-quantity" name="changeQuantityBy" required>
+				<button type="submit" class="btn">Change quantity</button>
+				<button class="btn remove" onclick="location.href='home.html'">Cancel</button>
+			</form>
+		</div>
+	</main>
+
+	<footer>
+		<p>&copy; 2023 Online Shop</p>
+	</footer>
+	<script src="../scripts/customAlert.js"></script>
+	<script src = "../scripts/buttonControl.js"></script>
+	<script src="../scripts/changeQuantity.js"></script>
+</body>
+</html>

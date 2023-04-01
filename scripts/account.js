@@ -59,9 +59,17 @@ function updateUserForm(oUsername) {
     surnameInput.name = 'sname';
   
     const submitButton = document.createElement('button');
+    const cancelButton = document.createElement('button');
+    cancelButton.textContent = 'Cancel';
     submitButton.textContent = 'Update User';
     submitButton.type = 'submit';
     submitButton.classList.add('btn')
+    cancelButton.classList.add('btn')
+    cancelButton.classList.add('remove')
+
+    cancelButton.addEventListener("click", function() {
+        form.remove();
+    });
   
     form.appendChild(firstNameLabel);
     form.appendChild(firstNameInput);
@@ -79,6 +87,7 @@ function updateUserForm(oUsername) {
     form.appendChild(passwordInput);
   
     form.appendChild(submitButton);
+    form.appendChild(cancelButton);
   
     form.addEventListener('submit', (event) => {
       event.preventDefault();
