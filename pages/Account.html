@@ -3,18 +3,18 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Online Shop - Cart Preview</title>
+	<title>Online Shop - Order Product</title>
 	<link rel="stylesheet" href="../stylesheets/style.css">
 </head>
 <body>
 	<header>
-		<h1>Shopping Cart</h1>
+		<h1>Account</h1>
 		<nav>
 			<ul>
 				<li><a href="home.html">Home</a></li>
-				<li><a href="#">Shopping Cart</a></li>
+				<li><a href="shopping_cart.html">Shopping Cart</a></li>
 				<li><a href="../index.html">About</a></li>
-				<li><a href="Account.html">Contact</a></li>
+				<li><a href="#">Account</a></li>
 				<li class = "auth-buttons">
 					<a id="logout-btn" href="login.html">Logout</a>
 				</li>
@@ -24,13 +24,12 @@
 
 	<main>
 		<div class = "item">
-		<section class="cart-items">
-		</section>
-		<div class="cart-total">
-			<h3>Total: </h3>
-			<a href="#" class="btn" id = "orderBtn" onclick="confirmOrder()">Order</a>
-			<a href="#" class="btn remove" id = "cancelOrderBtn" onclick="cancelOrder()">Cancel</a>
-		</div>
+			<section class ="cart-items">
+				<div class="button-container">
+					<a class="btn load-items"  onclick="">Change data</a>
+					<a class="btn load-items remove" onclick="">Delete account</a>
+				</div>
+			</section>
 		</div>
 	</main>
 
@@ -39,6 +38,6 @@
 	</footer>
 	<script src="../scripts/customAlert.js"></script>
 	<script src = "../scripts/buttonControl.js"></script>
-	<script src="../scripts/shoppingCart.js"></script>
+	<script src="../scripts/account.js"></script>
 </body>
 </html>

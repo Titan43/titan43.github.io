@@ -25,7 +25,7 @@ function createItemElement(item) {
   else{
     a.textContent = 'Out of Stock';
     a.setAttribute('href', '#');
-    a.style.backgroundColor = '#8b0000';
+    a.classList.add('remove');
   }
   a.onclick = function(event) {
     if (!isTokenValid()) {

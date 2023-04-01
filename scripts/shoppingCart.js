@@ -45,6 +45,7 @@ function createCartEntry(item) {
 
     };
     a.classList.add('btn');
+    a.classList.add('remove');
   
     article.appendChild(h2);
     article.appendChild(p1);
