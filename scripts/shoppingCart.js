@@ -13,7 +13,6 @@ function createCartEntry(item) {
     const p1 = document.createElement('p');
     const p2 = document.createElement('p');
     const a = document.createElement('a');
-  
     h2.textContent = item.productName;
     p1.textContent = `Quantity: ${item.quantity}`;
     p2.textContent = `Total cost: ${item.totalCost}`;

@@ -12,16 +12,22 @@ fetch(`http://localhost:8080/api/v1/product/${id}`)
     itemToOrder.innerHTML = "";
 
     const h2 = document.createElement('h2');
+    const p0 = document.createElement('p');
     const p1 = document.createElement('p');
     const p2 = document.createElement('p');
-
+    const p3 = document.createElement('p');
+  
     h2.textContent = product.name;
-    p1.textContent = product.description;
-    p2.textContent = `${product.price}`;
+    p0.textContent = `Product Id: ${product.id}`;
+    p1.textContent = `Description: ${product.description}`;
+    p2.textContent = `Price: ${product.price}`;
+    p3.textContent = `Available: ${product.quantity}`
   
     itemToOrder.appendChild(h2);
+    itemToOrder.appendChild(p0);
     itemToOrder.appendChild(p1);
     itemToOrder.appendChild(p2);
+    itemToOrder.appendChild(p3);
 
 }).catch(error => console.error(error));
 }
