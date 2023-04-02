@@ -6,5 +6,5 @@ form.addEventListener('submit', (event) => {
 
   const username = document.querySelector('#username').value;
   const password = document.querySelector('#password').value;
-  login(username, password)
+  login(username, password);
 });

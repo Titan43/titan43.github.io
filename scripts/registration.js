@@ -6,24 +6,26 @@ form.addEventListener('submit', (event) => {
   const formData = new FormData(form);
   const data = Object.fromEntries(formData.entries());
 
-  fetch('http://localhost:8080/api/v1/user/register', {
+  fetch(`${USER_LINK}/register`, {
     method: 'POST',
     headers: {
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
     },
-    body: JSON.stringify(data)
+    body: JSON.stringify(data),
   })
-  .then(response => {
-    if (response.ok) {
-      return response.text();
-    } else {
-      return response.text().then(error => {throw new Error(error)});
-    }
-  })
-  .then(out => {
-    login(data.username, data.password);
-  })
-  .catch(error => {
-    showAlert(error.message)
-  });
+      .then((response) => {
+        if (response.ok) {
+          return response.text();
+        } else {
+          return response.text().then((error) => {
+            throw new Error(error);
+          });
+        }
+      })
+      .then((out) => {
+        login(data.username, data.password);
+      })
+      .catch((error) => {
+        showAlert(error.message);
+      });
 });

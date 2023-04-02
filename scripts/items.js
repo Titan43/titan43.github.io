@@ -15,14 +15,13 @@ function createItemElement(item) {
   p0.textContent = `Product Id: ${item.id}`;
   p1.textContent = `Description: ${item.description}`;
   p2.textContent = `Price: ${item.price}`;
-  p3.textContent = `Available: ${item.quantity}`
+  p3.textContent = `Available: ${item.quantity}`;
   a.classList.add('btn');
 
-  if(item.quantity>0){
+  if (item.quantity>0) {
     a.textContent = 'Add to Cart';
     a.setAttribute('href', `order_page.html?${item.id}`);
-  }
-  else{
+  } else {
     a.textContent = 'Out of Stock';
     a.setAttribute('href', '#');
     a.classList.add('remove');
@@ -45,7 +44,7 @@ function createItemElement(item) {
 }
 
 function getProducts(page, count) {
-  fetch(`http://localhost:8080/api/v1/product/products?page=${page}&count=${count}`)
+  fetch(`${PRODUCT_LINK}/products?page=${page}&count=${count}`)
       .then((response) => response.json())
       .then((data) => {
         if (data.length == 0) {
@@ -70,12 +69,11 @@ function loadItems() {
 }
 
 function loadPrevItems() {
-    if(i>0){
-        i--;
-        getProducts(i, 9);
-        return;
-    }
-
-    showAlert("Previous items cannot be loaded. This is the first page");
-
+  if (i>0) {
+    i--;
+    getProducts(i, 9);
+    return;
   }
+
+  showAlert('Previous items cannot be loaded. This is the first page');
+}
