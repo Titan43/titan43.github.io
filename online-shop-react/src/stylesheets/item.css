@@ -1,0 +1,23 @@
+.cart-total {
+    text-align: center; 
+    padding: 20px;
+}
+.items {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-between;
+}
+
+.item {
+	background-color: #fff;
+	border-radius: 5px;
+	box-shadow: 0 0 10px rgba(0,0,0,0.2);
+	flex-basis: calc(33.33% - 20px);
+	margin-bottom: 20px;
+	padding: 20px;
+}
+
+.item h2 {
+	color: #555;
+	font-size: 20px;
+}

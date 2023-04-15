@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import Header from './components/Header';
+import About from './components/About';
 import { useCookies } from 'react-cookie';
 
 function App() {
@@ -27,11 +28,14 @@ function App() {
 
   return (
     <div className='App'>
-      <Header onSectionChange={handleSectionChange} 
+        <Header onSectionChange={handleSectionChange} 
             sectionName={sectionName}
             isLoggedIn={isLoggedIn}
             removeCookie={removeCookie}
             setCookie={setCookie}/>
+        { sectionName === "About" ?
+            <About/> : <></>
+        }
     </div>
   );
 }
