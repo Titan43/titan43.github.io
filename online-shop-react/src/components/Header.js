@@ -8,7 +8,8 @@ function Header(props) {
       <SectionName sectionName={props.sectionName}/>
       <Navbar onSectionChange={props.onSectionChange}
               removeCookie={props.removeCookie}
-              token={props.token}/>
+              isLoggedIn={props.isLoggedIn}
+              setCookie={props.setCookie}/>
     </header>
   </div>);
 }

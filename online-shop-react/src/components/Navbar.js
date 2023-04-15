@@ -1,19 +1,18 @@
 import '../stylesheets/headers.css';
 import '../stylesheets/button.css'
-import { useState } from 'react';
 
 function Navbar(props) {
   const handleSectionChange= (event) => {
     const newSectionName = event.target.textContent;
     props.onSectionChange(newSectionName);
+
+    if(newSectionName === 'Login'){
+        props.setCookie('token', 'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0MiIsImV4cCI6MTY4MTU4MTc0NCwiaWF0IjoxNjgxNTYwMTQ0fQ.Mw0GQScd-at6mLIvZyft2zmGbRAoEDQ4HjUtJMLpdoc');
+    }
   };
 
-  const token = props.token;
-
-  const [isLoggedIn, setIsLoggedIn] = useState(true);
-
   return (
-    <div className="Header">
+    <div className="Navbar">
 		<nav>
 			<ul>
 				<li><button className="btn" onClick={handleSectionChange}>Home</button></li>
@@ -21,10 +20,10 @@ function Navbar(props) {
 				<li><button className="btn" onClick={handleSectionChange}>About</button></li>
 				<li><button className="btn" onClick={handleSectionChange}>Account</button></li>
 				<li className = "auth-buttons">
-                    {isLoggedIn ?(
+                    {props.isLoggedIn ?(
 					    	<button className="btn" id="logout-btn" onClick={()=>{
                                 props.removeCookie('token');
-                                setIsLoggedIn(false);
+                                props.onSectionChange('Login')
                                 }
                             }>Logout</button>
                         ) : (
