@@ -1,17 +1,52 @@
 import '../stylesheets/headers.css';
 import '../stylesheets/button.css';
 import '../stylesheets/form.css'
+import {AUTH_LINK} from './constants'
+import { useState } from 'react';
 
 function Login(props) {
+
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    try {
+      const response = await fetch(AUTH_LINK, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ username, password })
+      });
+      if (response.ok) {
+        const userToken = await response.json();
+        props.setCookie('token', userToken.token);
+        props.onSectionChange(props.previousSectionName);
+      } else return response.text().then((error) => {
+        throw new Error(error);
+      });
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   return (
     <div className='Login'>
-        <form>
-			<label htmlFor="username">Username:</label>
-			<input type="text" id="username" name="username" required/>
-			<label htmlFor="password">Password:</label>
-			<input type="password" id="password" name="password" required/>
-			<button type="submit" className="btn">Sign in</button>
-			<button className="btn" onClick={()=>props.onSectionChange('Register')}>Register</button>
+        <form onSubmit={handleSubmit}>
+			    <label htmlFor="username">Username:</label>
+		    	<input type="text"
+            value={username} onChange={(event) => setUsername(event.target.value)}
+            required/>
+			    <label htmlFor="password">Password:</label>
+			    <input type="password"
+            value={password} onChange={(event) => setPassword(event.target.value)} 
+            required/>
+			    <button type="submit" className="btn">Sign in</button>
+			    <button className="btn" onClick={()=>
+                {
+                    props.onSectionChange('Register')
+                }}>Register</button>
         </form>
      </div>
   );

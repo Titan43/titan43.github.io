@@ -7,6 +7,7 @@ import Register from './components/Register';
 
 function App() {
   const [sectionName, setSectionName] = useState('About');
+  const [previousSectionName, setPreviousSectionName] = useState('About');
   const [cookies, setCookie, removeCookie] = useCookies(['token']);
 
   function handleSectionChange(newSectionName) {
@@ -33,7 +34,10 @@ function App() {
       case 'About':
         return <About/>;
       case 'Login':
-        return <Login onSectionChange={setSectionName}/>;
+        return <Login 
+          onSectionChange={setSectionName}
+          previousSectionName={previousSectionName} 
+          setCookie={setCookie}/>;
       case 'Register':
         return <Register onSectionChange={setSectionName}/>
       default:
@@ -46,6 +50,7 @@ function App() {
   return (
     <div className='App'>
         <Header onSectionChange={handleSectionChange} 
+            setPreviousSectionName={setPreviousSectionName}
             sectionName={sectionName}
             isLoggedIn={isLoggedIn}
             removeCookie={removeCookie}

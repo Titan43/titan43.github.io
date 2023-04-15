@@ -3,12 +3,9 @@ import '../stylesheets/button.css'
 
 function Navbar(props) {
   const handleSectionChange= (event) => {
+    props.setPreviousSectionName(props.sectionName);
     const newSectionName = event.target.textContent;
     props.onSectionChange(newSectionName);
-
-    if(newSectionName === 'Login'){
-        props.setCookie('token', 'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0MiIsImV4cCI6MTY4MTU4MTc0NCwiaWF0IjoxNjgxNTYwMTQ0fQ.Mw0GQScd-at6mLIvZyft2zmGbRAoEDQ4HjUtJMLpdoc');
-    }
   };
 
   return (

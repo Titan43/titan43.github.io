@@ -1,7 +1,7 @@
 import '../stylesheets/headers.css';
 import '../stylesheets/item.css';
 
-function About(props) {
+function About() {
     return (
       <div className='hero About'>
             <div className = 'item'>
