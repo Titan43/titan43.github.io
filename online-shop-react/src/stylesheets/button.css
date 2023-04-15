@@ -1,0 +1,56 @@
+.auth-buttons {
+    position: absolute;
+    right: 20px;
+}
+  
+.auth-buttons a{
+    margin-right:10px;
+}
+
+button + button {
+    margin-left: 10px;
+  }
+  
+.btn {
+    display: inline-block;
+    padding: 10px 20px;
+    font-size: 16px;
+    text-align: center;
+    text-decoration: none;
+    color: #fff;
+    background-color: #333;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+    margin-top: 15px;
+  }
+  
+  .btn:hover {
+    transform: scale(1.1);
+  }
+  
+  .btn.buy {
+    background-color: #008000;
+  }
+  
+  .btn.checkout {
+    background-color: #f44336;
+  }
+  
+  .btn.buy:hover, .btn.checkout:hover {
+    transform: scale(1.2);
+  }
+  
+  .btn:active {
+    transform: scale(0.5);
+  }
+
+  .auth-buttons {
+    position: absolute;
+    right: 20px;
+  }
+  
+  .auth-buttons a{
+    margin-right:10px;
+  }
