@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import Header from './components/Header';
 import About from './components/About';
 import { useCookies } from 'react-cookie';
+import Login from './components/Login';
+import Register from './components/Register';
 
 function App() {
   const [sectionName, setSectionName] = useState('About');
@@ -26,6 +28,21 @@ function App() {
     setIsLoggedIn(isTokenValid(cookies.token))
   }, [cookies.token]);
 
+  function Body(sectionName){
+    switch(sectionName){
+      case 'About':
+        return <About/>;
+      case 'Login':
+        return <Login onSectionChange={setSectionName}/>;
+      case 'Register':
+        return <Register onSectionChange={setSectionName}/>
+      default:
+        return <div>
+          <h3>Something went wrong</h3>
+          </div>;
+    }
+  }
+
   return (
     <div className='App'>
         <Header onSectionChange={handleSectionChange} 
@@ -33,9 +50,9 @@ function App() {
             isLoggedIn={isLoggedIn}
             removeCookie={removeCookie}
             setCookie={setCookie}/>
-        { sectionName === "About" ?
-            <About/> : <></>
-        }
+        <div className='main'>
+          {Body(sectionName)}
+        </div>
     </div>
   );
 }

@@ -19,20 +19,22 @@ function Navbar(props) {
 				<li><button className="btn" onClick={handleSectionChange}>Shopping Cart</button></li>
 				<li><button className="btn" onClick={handleSectionChange}>About</button></li>
 				<li><button className="btn" onClick={handleSectionChange}>Account</button></li>
-				<li className = "auth-buttons">
-                    {props.isLoggedIn ?(
-					    	<button className="btn" id="logout-btn" onClick={()=>{
-                                props.removeCookie('token');
-                                props.onSectionChange('Login')
+                {props.sectionName!=="Login" && props.sectionName!=="Register" ?
+				    (<li className = "auth-buttons">
+                        {props.isLoggedIn ?(
+					        	<button className="btn" id="logout-btn" onClick={()=>{
+                                    props.removeCookie('token');
+                                    props.onSectionChange('Login')
                                 }
-                            }>Logout</button>
+                                }>Logout</button>
                         ) : (
                         <>
                             <button className="btn" id="login-btn" onClick={handleSectionChange}>Login</button>
 					        <button className="btn" id="register-btn" onClick={handleSectionChange}>Register</button>
                         </>
-                    )}
-				</li>
+                        )}
+				    </li>):<></>
+                }
 			</ul>
 		</nav>
     </div>

@@ -7,6 +7,7 @@ function Header(props) {
     <header>
       <SectionName sectionName={props.sectionName}/>
       <Navbar onSectionChange={props.onSectionChange}
+              sectionName={props.sectionName}
               removeCookie={props.removeCookie}
               isLoggedIn={props.isLoggedIn}
               setCookie={props.setCookie}/>
