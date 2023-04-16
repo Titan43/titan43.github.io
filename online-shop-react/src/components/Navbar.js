@@ -3,9 +3,19 @@ import '../stylesheets/button.css'
 
 function Navbar(props) {
   const handleSectionChange= (event) => {
-    props.setPreviousSectionName(props.sectionName);
+    if(props.sectionName!=="Login" && props.sectionName!=="Register"){
+      props.setPreviousSectionName(props.sectionName);
+    }
     const newSectionName = event.target.textContent;
-    props.onSectionChange(newSectionName);
+    if((newSectionName === "Shopping Cart" 
+      || newSectionName === "Account") 
+      && !props.isLoggedIn){
+      props.setPreviousSectionName(newSectionName);
+      props.onSectionChange("Login");
+    }
+    else{
+      props.onSectionChange(newSectionName);
+    }
   };
 
   return (

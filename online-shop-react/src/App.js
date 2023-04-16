@@ -4,6 +4,7 @@ import About from './components/About';
 import { useCookies } from 'react-cookie';
 import Login from './components/Login';
 import Register from './components/Register';
+import ProductList from './components/ProductList';
 
 function App() {
   const [sectionName, setSectionName] = useState('About');
@@ -39,7 +40,9 @@ function App() {
           previousSectionName={previousSectionName} 
           setCookie={setCookie}/>;
       case 'Register':
-        return <Register onSectionChange={setSectionName}/>
+        return <Register onSectionChange={setSectionName}/>;
+      case 'Home':
+        return <ProductList/>;
       default:
         return <div>
           <h3>Something went wrong</h3>
