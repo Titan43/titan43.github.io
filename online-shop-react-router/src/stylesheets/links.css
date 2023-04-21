@@ -1,0 +1,19 @@
+.auth-buttons {
+    position: absolute;
+    right: 20px;
+}
+  
+.auth-buttons a{
+    margin-right:10px;
+}
+
+a {
+    font-size: 1.2em;
+    color: #555;
+    text-decoration: none;
+}
+
+a:hover {
+    color: #fff;
+    background-color: #333;
+}
