@@ -1,10 +1,16 @@
 import '../stylesheets/headers.css';
 import '../stylesheets/button.css';
 import '../stylesheets/form.css';
+import { useNavigate } from 'react-router-dom';
 
-const Register = () => {
+const Register = (props) => {
+  const navigate = useNavigate();
+  props.setSectionName('Register');
+  const onLogin = () =>{
+	navigate('/login')
+  }
   return (
-    <div className='Login'>
+    <div className='Register'>
 		  <form>
 			  <label htmlFor="firstname">Firstname:</label>
 			  <input type="text" id="firstname" name="fname" />
@@ -21,7 +27,7 @@ const Register = () => {
 			  <label htmlFor="password">Password:</label>
 			  <input type="password" id="password" name="password" required />
 			  <button type="submit" className="btn">Register</button>
-			  <button className="btn">Login</button>
+			  <button className="btn" onClick={onLogin}>Login</button>
       </form>
     </div>
   );

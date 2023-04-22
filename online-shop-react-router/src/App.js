@@ -4,6 +4,7 @@ import { Route, BrowserRouter, Routes} from 'react-router-dom';
 import About from "./components/About";
 import Navbar from './components/Navbar';
 import Login from './components/Login';
+import Register from './components/Register';
 
 function App() {
   const [cookies, setCookie, removeCookie] = useCookies(['token']);
@@ -39,6 +40,7 @@ function App() {
                   removeCookie={removeCookie}
                 />}
             />
+            <Route path='/register' element={<Register setSectionName={setSectionName}/>}/>
             <Route path="*" element={<h3>404 Not Found</h3>}/>
           </Route>
         </Routes>

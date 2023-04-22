@@ -1,9 +1,9 @@
 import '../stylesheets/headers.css';
 import '../stylesheets/button.css';
 import '../stylesheets/form.css'
-import {AUTH_LINK} from './constants'
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { handleSubmit } from './Auth';
 
 const Login = (props) => {
 
@@ -14,31 +14,17 @@ const Login = (props) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
-  const handleSubmit = async (event) => {
+  const onSubmit = (event) => {
     event.preventDefault();
-    try {
-      const response = await fetch(AUTH_LINK, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ username, password })
-      });
-      if (response.ok) {
-        const userToken = await response.json();
-        props.setCookie('token', userToken.token);
-        navigate(props.previousSectionName);
-      } else return response.text().then((error) => {
-        throw new Error(error);
-      });
-    } catch (error) {
-      console.error(error);
-    }
+    handleSubmit(username, password, props.setCookie, navigate, props.previousSectionName);
   };
+  const onRegister = () => {
+    navigate('/register');
+  }
 
   return (
     <div className='Login'>
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={onSubmit}>
 			    <label htmlFor="username">Username:</label>
 		    	<input type="text"
             value={username} onChange={(event) => setUsername(event.target.value)}
@@ -48,7 +34,7 @@ const Login = (props) => {
             value={password} onChange={(event) => setPassword(event.target.value)} 
             required/>
 			    <button type="submit" className="btn">Sign in</button>
-			    <button className="btn">Register</button>
+			    <button className="btn" onClick={onRegister}>Register</button>
         </form>
      </div>
   );

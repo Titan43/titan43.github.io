@@ -16,7 +16,7 @@ const Navbar = (props) => {
           <li><Link to="/account" className="btn">Account</Link></li>
           <li className="auth-buttons">
             {!props.isLoggedIn? (
-              props.sectionName!=='Login'? (
+              props.sectionName!=='Login' && props.sectionName !== 'Register'? (
                 <>
                   <Link id="login-btn" to="/login" className="btn">Login</Link>
                   <Link id="register-btn" to="/register" className="btn">Register</Link>
