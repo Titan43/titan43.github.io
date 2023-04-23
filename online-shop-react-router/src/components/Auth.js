@@ -1,6 +1,6 @@
 import { AUTH_LINK } from './constants';
 
-export const handleSubmit = async (username, password, setCookie, navigate, previousSectionName) => {
+export const loginUser = async (username, password, setCookie, navigate, handleMessage) => {
   try {
     const response = await fetch(AUTH_LINK, {
       method: 'POST',
@@ -12,11 +12,13 @@ export const handleSubmit = async (username, password, setCookie, navigate, prev
     if (response.ok) {
       const userToken = await response.json();
       setCookie('token', userToken.token);
-      navigate(previousSectionName);
-    } else return response.text().then((error) => {
+      navigate('/');
+    } else {
+      const error = await response.text();
       throw new Error(error);
-    });
+    }
   } catch (error) {
-    console.error(error);
-  }
+    handleMessage(error.message, 'error');
+    console.error(error.message);
+  }  
 };

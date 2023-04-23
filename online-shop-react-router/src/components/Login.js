@@ -3,20 +3,20 @@ import '../stylesheets/button.css';
 import '../stylesheets/form.css'
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { handleSubmit } from './Auth';
+import {loginUser } from './Auth';
 
 const Login = (props) => {
 
   props.setSectionName('Login');
   props.removeCookie('token');
-
   const navigate = useNavigate();
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
   const onSubmit = (event) => {
     event.preventDefault();
-    handleSubmit(username, password, props.setCookie, navigate, props.previousSectionName);
+    loginUser(username, password, props.setCookie, navigate, 
+      props.handleMessage);
   };
   const onRegister = () => {
     navigate('/register');

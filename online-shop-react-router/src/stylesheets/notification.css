@@ -1,0 +1,45 @@
+.notification {
+  position: fixed;
+  bottom: 60px;
+  left: 20px;
+  padding: 20px;
+  color: white;
+  background-color: #f5f5f5;
+  border-top: 1px solid #ddd;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  font-weight: bold;
+  font-size: 1.2rem;
+  transition: all 0.5s ease;
+}
+  
+.hidden {
+  display: none;
+}
+
+.timer {
+  position: relative;
+  height: 5px;
+  margin-top: 5px;
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+.timer .bar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  background-color: #ffffff;
+  width: 100%;
+  animation: timerAnimation 5s ease-out;
+}
+
+@keyframes timerAnimation {
+  0% {
+    width: 100%;
+  }
+  100% {
+    width: 0%;
+  }
+}

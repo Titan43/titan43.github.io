@@ -6,11 +6,14 @@ import Navbar from './components/Navbar';
 import Login from './components/Login';
 import Register from './components/Register';
 import NotFound from './components/404';
+import Notification from './components/Notification';
 
 function App() {
   const [cookies, setCookie, removeCookie] = useCookies(['token']);
   const [sectionName, setSectionName] = useState("About");
-  const [previousSectionName, setPreviousSectionName] = useState("About");
+  const [message, setMessage] = useState('');
+  const [type, setType] = useState('');
+  const [notificationUpdateTime, setNotificationUpdateTime] = useState(Date.now());
 
   function isTokenValid(token){
     if(!token) return false;
@@ -27,29 +30,38 @@ function App() {
     setIsLoggedIn(isTokenValid(cookies.token))
   }, [cookies.token]);
 
+  const handleMessage = (m, t) =>{
+    setMessage(m);
+    setType(t);
+    setNotificationUpdateTime(Date.now());
+  }
   return (
-      <BrowserRouter>
+    <>
+      <BrowserRouter >
         <Routes>
           <Route path="/" element={<Navbar sectionName={sectionName} isLoggedIn={isLoggedIn}/>}>
             <Route index element={<About setSectionName={setSectionName}/>}/>
             <Route path='/login' 
               element={
                 <Login
-                  previousSectionName={previousSectionName}
                   setSectionName={setSectionName} 
                   setCookie={setCookie}
                   removeCookie={removeCookie}
+                  handleMessage={handleMessage}
                 />}
             />
             <Route path='/register' element={<Register setCookie={setCookie}
               setSectionName={setSectionName}
-              previousSectionName={previousSectionName}
+              handleMessage={handleMessage}
               />}
             />
-            <Route path="*" element={<NotFound/>}/>
+            <Route path="*" element={<NotFound setSectionName={setSectionName}/>}/>
           </Route>
         </Routes>
+        
       </BrowserRouter>
+      <Notification message={message} type={type} notificationUpdateTime={notificationUpdateTime}/>
+      </>
   );
 }
 

@@ -3,7 +3,7 @@ import '../stylesheets/button.css';
 import '../stylesheets/form.css';
 import { useNavigate } from 'react-router-dom';
 import { USER_LINK } from './constants';
-import { handleSubmit } from './Auth';
+import { loginUser } from './Auth';
 import { useState } from 'react';
 
 const Register = (props) => {
@@ -50,7 +50,8 @@ const Register = (props) => {
 		  }
 		})
 		.then((out) => {
-		  handleSubmit(formData.username, formData.password, props.setCookie, navigate, props.previousSectionName);
+		  loginUser(formData.username, formData.password, props.setCookie, 
+			navigate, props.handleMessage);
 		})
 		.catch((error) => {
 		  console.error(error.message);
