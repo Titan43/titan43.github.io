@@ -56,9 +56,11 @@ function App() {
               handleMessage={handleMessage}
               />}
             />
-            <Route path='/account' element={<Account 
+            <Route path='/account' element={<Account
+              cookies={cookies} 
               setSectionName={setSectionName}
               isLoggedIn={isLoggedIn}
+              handleMessage={handleMessage}
               />}
             />
             <Route path="*" element={<NotFound setSectionName={setSectionName}/>}/>

@@ -27,6 +27,23 @@ function UpdateUserForm(props) {
 
   return (
     <form onSubmit={handleSubmit}>
+      <label htmlFor="firstName">First Name:</label>
+      <input
+        type="text"
+        id="firstName"
+        name="firstName"
+        value={formData.firstName}
+        onChange={handleInputChange}
+      />
+
+      <label htmlFor="surname">Surname:</label>
+      <input
+        type="text"
+        id="surname"
+        name="surname"
+        value={formData.surname}
+        onChange={handleInputChange}
+      />
       <label htmlFor="phoneNumber">Phone Number:</label>
       <input
         type="text"
@@ -52,24 +69,6 @@ function UpdateUserForm(props) {
         name="password"
         required
         value={formData.password}
-        onChange={handleInputChange}
-      />
-
-      <label htmlFor="firstName">First Name:</label>
-      <input
-        type="text"
-        id="firstName"
-        name="firstName"
-        value={formData.firstName}
-        onChange={handleInputChange}
-      />
-
-      <label htmlFor="surname">Surname:</label>
-      <input
-        type="text"
-        id="surname"
-        name="surname"
-        value={formData.surname}
         onChange={handleInputChange}
       />
 

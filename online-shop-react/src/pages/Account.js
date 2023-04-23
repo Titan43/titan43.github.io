@@ -4,17 +4,24 @@ import '../stylesheets/item.css';
 import { useNavigate } from 'react-router-dom';
 import Dashboard from '../components/Dashboard';
 import UpdateUserForm from '../components/UserUpdate';
+import UserBlock from '../components/UserView';
+import { UserData } from '../components/UserData';
 
 const Account = (props) => {
 
     const navigate = useNavigate();
 
+    const [user, setUser] = useState(null);
+    const [dataLoaded, setDataLoaded] = useState(false);
+
     useEffect(() => {
         if (!props.isLoggedIn) {
-            navigate('/login');
+          navigate('/login');
         }
-    }, [props.isLoggedIn, navigate]);
-    
+        UserData(props.cookies, setUser, props.handleMessage).then(() => {
+            setDataLoaded(true);
+        });
+    }, [props, navigate]);
 
     const [showUserUpdate, setShowUserUpdate] = useState(false);
 
@@ -25,14 +32,25 @@ const Account = (props) => {
 
     props.setSectionName('Account');
 
-    return <div className='item'>
-        <div className='cart-items'>
-        { showUserUpdate ? 
-            (<UpdateUserForm handleUserUpdateForm={handleUserUpdateForm}/>) : <></>
-        }
-        <Dashboard handleUserUpdateForm={handleUserUpdateForm}/>
+    return (
+        <div className="item">
+          <div className="cart-items">
+          {dataLoaded ? (
+             <>
+                <UserBlock user={user} />
+                {showUserUpdate ? (
+                <UpdateUserForm handleUserUpdateForm={handleUserUpdateForm} />
+                ) : (
+                <></>
+                )}
+                {user && <Dashboard userRole={user.role} handleUserUpdateForm={handleUserUpdateForm} />}
+            </>
+            ) : (
+            <div>Loading...</div>
+            )}
+          </div>
         </div>
-    </div>
+    );
 }
 
 export default Account;
