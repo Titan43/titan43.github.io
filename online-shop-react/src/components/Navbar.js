@@ -23,7 +23,7 @@ const Navbar = (props) => {
                 </>
               ) : <></>
             ):
-            (<Link id="logout-btn" to="/login" className="btn remove">Logout</Link>)
+            (<Link id="logout-btn" to="/login" className="btn">Logout</Link>)
             }
           </li>
         </ul>

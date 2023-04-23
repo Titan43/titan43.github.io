@@ -8,7 +8,7 @@ const Notification = ({ message, type, notificationUpdateTime }) => {
   useEffect(() => {
     if (message) {
       setShow(true);
-      const timer = setTimeout(() => setShow(false), 4900);
+      const timer = setTimeout(() => setShow(false), 2900);
       return () => clearTimeout(timer);
     } else {
       setShow(false);
@@ -19,7 +19,7 @@ const Notification = ({ message, type, notificationUpdateTime }) => {
     if (show) {
       barRef.current.style.animation = 'none';
       void barRef.current.offsetWidth;
-      barRef.current.style.animation = 'timerAnimation 5s ease-out';
+      barRef.current.style.animation = 'timerAnimation 3s ease-out';
     }
   }, [show, notificationUpdateTime]);
 

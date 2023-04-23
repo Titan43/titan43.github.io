@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { useCookies } from 'react-cookie';
 import { Route, BrowserRouter, Routes} from 'react-router-dom';
-import About from "./components/About";
+import About from "./pages/About";
 import Navbar from './components/Navbar';
-import Login from './components/Login';
-import Register from './components/Register';
-import NotFound from './components/404';
+import Login from './pages/Login';
+import Register from './pages/Register';
+import NotFound from './pages/404';
 import Notification from './components/Notification';
+import Account from './pages/Account';
 
 function App() {
   const [cookies, setCookie, removeCookie] = useCookies(['token']);
@@ -53,6 +54,11 @@ function App() {
             <Route path='/register' element={<Register setCookie={setCookie}
               setSectionName={setSectionName}
               handleMessage={handleMessage}
+              />}
+            />
+            <Route path='/account' element={<Account 
+              setSectionName={setSectionName}
+              isLoggedIn={isLoggedIn}
               />}
             />
             <Route path="*" element={<NotFound setSectionName={setSectionName}/>}/>

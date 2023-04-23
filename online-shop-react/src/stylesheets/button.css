@@ -1,10 +1,6 @@
 button + button {
     margin-left: 10px;
   }
-
-.remove{
-    background-color: #8b0000;
-}
   
 .btn {
     display: inline-block;
@@ -40,7 +36,18 @@ button + button {
   .btn:active {
     transform: scale(0.5);
   }
-  
+
+  .button-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+  }
+    
+  .remove{
+    background-color: #8b0000;
+  }
+
   @media (max-width: 768px) {
     .auth-buttons {
       position: relative;

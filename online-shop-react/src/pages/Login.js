@@ -3,7 +3,7 @@ import '../stylesheets/button.css';
 import '../stylesheets/form.css'
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import {loginUser } from './Auth';
+import {loginUser } from '../components/Auth';
 
 const Login = (props) => {
 

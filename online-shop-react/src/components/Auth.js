@@ -13,6 +13,7 @@ export const loginUser = async (username, password, setCookie, navigate, handleM
       const userToken = await response.json();
       setCookie('token', userToken.token);
       navigate('/');
+      handleMessage('Successfully logged in(CODE 200)')
     } else {
       const error = await response.text();
       throw new Error(error);

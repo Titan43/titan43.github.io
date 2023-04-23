@@ -2,8 +2,8 @@ import '../stylesheets/headers.css';
 import '../stylesheets/button.css';
 import '../stylesheets/form.css';
 import { useNavigate } from 'react-router-dom';
-import { USER_LINK } from './constants';
-import { loginUser } from './Auth';
+import { USER_LINK } from '../components/constants';
+import { loginUser } from '../components/Auth';
 import { useState } from 'react';
 
 const Register = (props) => {
@@ -52,9 +52,10 @@ const Register = (props) => {
 		.then((out) => {
 		  loginUser(formData.username, formData.password, props.setCookie, 
 			navigate, props.handleMessage);
+      props.handleMessage(out);
 		})
 		.catch((error) => {
-		  console.error(error.message);
+		  props.handleMessage(error.message, 'error');
 		});
   };
   return (
