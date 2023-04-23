@@ -5,6 +5,7 @@ import About from "./components/About";
 import Navbar from './components/Navbar';
 import Login from './components/Login';
 import Register from './components/Register';
+import NotFound from './components/404';
 
 function App() {
   const [cookies, setCookie, removeCookie] = useCookies(['token']);
@@ -40,8 +41,12 @@ function App() {
                   removeCookie={removeCookie}
                 />}
             />
-            <Route path='/register' element={<Register setSectionName={setSectionName}/>}/>
-            <Route path="*" element={<h3>404 Not Found</h3>}/>
+            <Route path='/register' element={<Register setCookie={setCookie}
+              setSectionName={setSectionName}
+              previousSectionName={previousSectionName}
+              />}
+            />
+            <Route path="*" element={<NotFound/>}/>
           </Route>
         </Routes>
       </BrowserRouter>
