@@ -1,7 +1,10 @@
 import '../stylesheets/headers.css';
 import '../stylesheets/item.css';
 
-function About() {
+function About(props) {
+
+	props.setSectionName('About');
+
     return (
       <div className='hero About'>
             <div className = 'item'>

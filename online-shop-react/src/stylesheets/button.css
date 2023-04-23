@@ -1,12 +1,3 @@
-.auth-buttons {
-    position: absolute;
-    right: 10px;
-}
-  
-.auth-buttons button{
-    margin-right:10px;
-}
-
 button + button {
     margin-left: 10px;
   }

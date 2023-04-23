@@ -1,50 +1,38 @@
-import '../stylesheets/headers.css';
-import '../stylesheets/button.css'
+import {Link, Outlet } from 'react-router-dom';
+import "../stylesheets/headers.css";
+import "../stylesheets/links.css";
+import "../stylesheets/button.css";
 
-function Navbar(props) {
-  const handleSectionChange= (event) => {
-    if(props.sectionName!=="Login" && props.sectionName!=="Register"){
-      props.setPreviousSectionName(props.sectionName);
-    }
-    const newSectionName = event.target.textContent;
-    if((newSectionName === "Shopping Cart" 
-      || newSectionName === "Account") 
-      && !props.isLoggedIn){
-      props.setPreviousSectionName(newSectionName);
-      props.onSectionChange("Login");
-    }
-    else{
-      props.onSectionChange(newSectionName);
-    }
-  };
-
+const Navbar = (props) => {
   return (
-    <div className="Navbar">
-		<nav>
-			<ul>
-				<li><button className="btn" onClick={handleSectionChange}>Home</button></li>
-				<li><button className="btn" onClick={handleSectionChange}>Shopping Cart</button></li>
-				<li><button className="btn" onClick={handleSectionChange}>About</button></li>
-				<li><button className="btn" onClick={handleSectionChange}>Account</button></li>
-                {props.sectionName!=="Login" && props.sectionName!=="Register" ?
-				    (<li className = "auth-buttons">
-                        {props.isLoggedIn ?(
-					        	<button className="btn" id="logout-btn" onClick={()=>{
-                                    props.removeCookie('token');
-                                    props.onSectionChange('Login')
-                                }
-                                }>Logout</button>
-                        ) : (
-                        <>
-                            <button className="btn" id="login-btn" onClick={handleSectionChange}>Login</button>
-					        <button className="btn" id="register-btn" onClick={handleSectionChange}>Register</button>
-                        </>
-                        )}
-				    </li>):<></>
-                }
-			</ul>
-		</nav>
+    <>
+    <header>
+      <h1>{props.sectionName}</h1>
+      <nav>
+        <ul>
+          <li><Link to="/home" className="btn">Home</Link></li>
+          <li><Link to="/shopping_cart" className="btn">Shopping Cart</Link></li>
+          <li><Link to="/" className="btn">About</Link></li>
+          <li><Link to="/account" className="btn">Account</Link></li>
+          <li className="auth-buttons">
+            {!props.isLoggedIn? (
+              props.sectionName!=='Login' && props.sectionName !== 'Register'? (
+                <>
+                  <Link id="login-btn" to="/login" className="btn">Login</Link>
+                  <Link id="register-btn" to="/register" className="btn">Register</Link>
+                </>
+              ) : <></>
+            ):
+            (<Link id="logout-btn" to="/login" className="btn remove">Logout</Link>)
+            }
+          </li>
+        </ul>
+      </nav>
+    </header>
+    <div className='main'>
+      <Outlet/>
     </div>
+    </>
   );
 }
 

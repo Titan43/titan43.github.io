@@ -1,19 +1,19 @@
 import React, { useEffect, useState } from 'react';
-import Header from './components/Header';
-import About from './components/About';
 import { useCookies } from 'react-cookie';
+import { Route, BrowserRouter, Routes} from 'react-router-dom';
+import About from "./components/About";
+import Navbar from './components/Navbar';
 import Login from './components/Login';
 import Register from './components/Register';
-import ProductList from './components/ProductList';
+import NotFound from './components/404';
+import Notification from './components/Notification';
 
 function App() {
-  const [sectionName, setSectionName] = useState('About');
-  const [previousSectionName, setPreviousSectionName] = useState('About');
   const [cookies, setCookie, removeCookie] = useCookies(['token']);
-
-  function handleSectionChange(newSectionName) {
-    setSectionName(newSectionName);
-  }
+  const [sectionName, setSectionName] = useState("About");
+  const [message, setMessage] = useState('');
+  const [type, setType] = useState('');
+  const [notificationUpdateTime, setNotificationUpdateTime] = useState(Date.now());
 
   function isTokenValid(token){
     if(!token) return false;
@@ -30,38 +30,38 @@ function App() {
     setIsLoggedIn(isTokenValid(cookies.token))
   }, [cookies.token]);
 
-  function Body(sectionName){
-    switch(sectionName){
-      case 'About':
-        return <About/>;
-      case 'Login':
-        return <Login 
-          onSectionChange={setSectionName}
-          previousSectionName={previousSectionName} 
-          setCookie={setCookie}/>;
-      case 'Register':
-        return <Register onSectionChange={setSectionName}/>;
-      case 'Home':
-        return <ProductList/>;
-      default:
-        return <div>
-          <h3>Something went wrong</h3>
-          </div>;
-    }
+  const handleMessage = (m, t) =>{
+    setMessage(m);
+    setType(t);
+    setNotificationUpdateTime(Date.now());
   }
-
   return (
-    <div className='App'>
-        <Header onSectionChange={handleSectionChange} 
-            setPreviousSectionName={setPreviousSectionName}
-            sectionName={sectionName}
-            isLoggedIn={isLoggedIn}
-            removeCookie={removeCookie}
-            setCookie={setCookie}/>
-        <div className='main'>
-          {Body(sectionName)}
-        </div>
-    </div>
+    <>
+      <BrowserRouter >
+        <Routes>
+          <Route path="/" element={<Navbar sectionName={sectionName} isLoggedIn={isLoggedIn}/>}>
+            <Route index element={<About setSectionName={setSectionName}/>}/>
+            <Route path='/login' 
+              element={
+                <Login
+                  setSectionName={setSectionName} 
+                  setCookie={setCookie}
+                  removeCookie={removeCookie}
+                  handleMessage={handleMessage}
+                />}
+            />
+            <Route path='/register' element={<Register setCookie={setCookie}
+              setSectionName={setSectionName}
+              handleMessage={handleMessage}
+              />}
+            />
+            <Route path="*" element={<NotFound setSectionName={setSectionName}/>}/>
+          </Route>
+        </Routes>
+        
+      </BrowserRouter>
+      <Notification message={message} type={type} notificationUpdateTime={notificationUpdateTime}/>
+      </>
   );
 }
 
