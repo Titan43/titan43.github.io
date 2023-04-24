@@ -2,9 +2,9 @@ import '../stylesheets/headers.css';
 import '../stylesheets/button.css';
 import '../stylesheets/form.css';
 import { useNavigate } from 'react-router-dom';
-import { USER_LINK } from '../components/constants';
-import { loginUser } from '../components/Auth';
 import { useState } from 'react';
+import { UserCreate } from '../components/UserCreate';
+import { loginUser } from '../components/Auth';
 
 const Register = (props) => {
   const navigate = useNavigate();
@@ -32,31 +32,8 @@ const Register = (props) => {
   }
   const onRegister = (event) => {
 	event.preventDefault();
-  
-	fetch(`${USER_LINK}/register`, {
-	  method: 'POST',
-	  headers: {
-		'Content-Type': 'application/json',
-	  },
-	  body: JSON.stringify(formData),
-	})
-		.then((response) => {
-		  if (response.ok) {
-			return response.text();
-		  } else {
-			return response.text().then((error) => {
-			  throw new Error(error);
-			});
-		  }
-		})
-		.then((out) => {
-		  loginUser(formData.username, formData.password, props.setCookie, 
-			navigate, props.handleMessage);
-      props.handleMessage(out);
-		})
-		.catch((error) => {
-		  props.handleMessage(error.message, 'error');
-		});
+  UserCreate(formData, loginUser, props.setCookie, 
+    navigate, props.handleMessage);
   };
   return (
     <div className='Register'>

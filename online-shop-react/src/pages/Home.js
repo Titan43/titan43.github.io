@@ -1,10 +1,10 @@
 import { useEffect, useState, useCallback } from "react";
-import ProductItem from "./ProductItem";
-import ProductLoadButtons from "./ProductLoadButtons";
-import { PRODUCT_LINK } from "./constants";
+import ProductItem from "../components/ProductItem";
+import ProductLoadButtons from "../components/ProductLoadButtons";
+import { PRODUCT_LINK } from "../components/constants";
 import "../stylesheets/item.css";
 
-function ProductList() {
+const Home = (props) => {
   const [items, setItems] = useState([]);
   const [currentPage, setCurrentPage] = useState(0);
   const [loading, setLoading] = useState(true);
@@ -14,13 +14,15 @@ function ProductList() {
       setCurrentPage(currentPage - 1);
     }
     else{
-        console.log("No previous products to display");
+        props.handleMessage("Can't load previous products(CODE 404)", 'error');
     }
-  }, [currentPage]);
+  }, [currentPage, props]);
 
   function loadNextItems() {
     setCurrentPage(currentPage + 1);
   }
+
+  props.setSectionName('Home');
 
   useEffect(() => {
     async function obtainProducts(page, count) {
@@ -37,16 +39,16 @@ function ProductList() {
         if (data && data.length > 0) {
           setItems(data);
         } else {
-          console.log("No products to display");  
+          props.handleMessage("Can't load more products(CODE 404)", 'error');  
           loadPrevItems();
         }
       } catch (error) {
-        console.error(error);
+        props.handleMessage(error, 'error');
       }
       setLoading(false);
     }
     obtainProducts(currentPage, 9);
-  }, [currentPage, loadPrevItems]);
+  }, [currentPage, loadPrevItems, props]);
 
   return (
     <div className="item">
@@ -69,4 +71,4 @@ function ProductList() {
   );
 }
 
-export default ProductList;
+export default Home;

@@ -8,6 +8,7 @@ import Register from './pages/Register';
 import NotFound from './pages/404';
 import Notification from './components/Notification';
 import Account from './pages/Account';
+import Home from './pages/Home';
 
 function App() {
   const [cookies, setCookie, removeCookie] = useCookies(['token']);
@@ -63,6 +64,10 @@ function App() {
               handleMessage={handleMessage}
               />}
             />
+            <Route path='/home' element={<Home 
+              handleMessage={handleMessage}
+              setSectionName={setSectionName}
+              />}/>
             <Route path="*" element={<NotFound setSectionName={setSectionName}/>}/>
           </Route>
         </Routes>
