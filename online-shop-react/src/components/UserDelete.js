@@ -1,14 +1,13 @@
 import { USER_LINK } from './constants';
 
-export const UserUpdate = async (username, newwData, cookies, handleMessage) => {
+export const UserDelete = async (username, cookies, navigate, handleMessage) => {
   try {
     const response = await fetch(USER_LINK+`?username=${username}`, {
-      method: 'PUT',
+      method: 'DELETE',
       headers: {
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${cookies.token}`,
       },
-      body: JSON.stringify(newwData),
     });
     if (!response.ok) {
       const error = await response.text();
@@ -16,6 +15,7 @@ export const UserUpdate = async (username, newwData, cookies, handleMessage) => 
     }
     else{
       const data = await response.text();
+      navigate('/login');
       handleMessage(data);
     }
   }

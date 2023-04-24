@@ -3,9 +3,10 @@ import '../stylesheets/headers.css';
 import '../stylesheets/item.css';
 import { useNavigate } from 'react-router-dom';
 import Dashboard from '../components/Dashboard';
-import UpdateUserForm from '../components/UserUpdate';
+import UpdateUserForm from '../components/UserUpdateForm';
 import UserBlock from '../components/UserView';
 import { UserData } from '../components/UserData';
+import { UserDelete } from '../components/UserDelete';
 
 const Account = (props) => {
 
@@ -30,6 +31,10 @@ const Account = (props) => {
             : setShowUserUpdate(true);
     }
 
+    const handleUserDelete = () => {
+        UserDelete(user.username, props.cookies, navigate, props.handleMessage);
+    }
+
     props.setSectionName('Account');
 
     return (
@@ -39,11 +44,16 @@ const Account = (props) => {
              <>
                 <UserBlock user={user} />
                 {showUserUpdate ? (
-                <UpdateUserForm handleUserUpdateForm={handleUserUpdateForm} />
+                <UpdateUserForm handleUserUpdateForm={handleUserUpdateForm} 
+                    username={user.username}
+                    cookies={props.cookies}
+                    handleMessage={props.handleMessage}/>
                 ) : (
                 <></>
                 )}
-                {user && <Dashboard userRole={user.role} handleUserUpdateForm={handleUserUpdateForm} />}
+                {user && <Dashboard userRole={user.role} 
+                    handleUserUpdateForm={handleUserUpdateForm}
+                    handleUserDelete={handleUserDelete} />}
             </>
             ) : (
             <div>Loading...</div>

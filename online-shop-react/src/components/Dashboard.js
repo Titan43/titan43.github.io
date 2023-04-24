@@ -31,7 +31,7 @@ const Dashboard = (props) => {
         <button
           className="btn load-items remove"
           id="deleteAcc"
-          onClick={() => (window.location.href = '')}
+          onClick={props.handleUserDelete}
         >
           Delete account
         </button>
