@@ -58,6 +58,7 @@ function App() {
               />}
             />
             <Route path='/account' element={<Account
+            sectionName={sectionName}
               cookies={cookies} 
               setSectionName={setSectionName}
               isLoggedIn={isLoggedIn}

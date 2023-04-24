@@ -7,7 +7,6 @@ import {loginUser } from '../components/Auth';
 
 const Login = (props) => {
 
-  props.removeCookie('token');
   const navigate = useNavigate();
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
@@ -22,6 +21,7 @@ const Login = (props) => {
   }
 
   useEffect(()=>{
+    props.removeCookie('token');
 		props.setSectionName('Login');
 	}, [props]);
 

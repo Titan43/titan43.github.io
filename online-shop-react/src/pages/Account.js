@@ -17,11 +17,14 @@ const Account = (props) => {
 
     useEffect(() => {
         if (!props.isLoggedIn) {
-          navigate('/login');
+            if(props.sectionName!=='Login')
+                navigate('/login');
         }
+        else{
         UserData(props.cookies, setUser, props.handleMessage).then(() => {
             setDataLoaded(true);
         });
+    }
     }, [props, navigate]);
 
     const [showUserUpdate, setShowUserUpdate] = useState(false);
