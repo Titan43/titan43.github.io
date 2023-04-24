@@ -1,9 +1,12 @@
+import { useEffect } from 'react';
 import '../stylesheets/headers.css';
 import '../stylesheets/item.css';
 
 function About(props) {
 
-	props.setSectionName('About');
+	useEffect(()=>{
+		props.setSectionName('About');
+	}, [props]);
 
     return (
       <div className='hero About'>

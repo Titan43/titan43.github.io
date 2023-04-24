@@ -1,5 +1,4 @@
 const UserBlock = ({ user }) => {
-    console.log('user:', user);
     return (
       <div className='item'>
         <h2>{user.role}</h2>

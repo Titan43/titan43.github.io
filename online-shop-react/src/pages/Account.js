@@ -34,8 +34,10 @@ const Account = (props) => {
     const handleUserDelete = () => {
         UserDelete(user.username, props.cookies, navigate, props.handleMessage);
     }
-
-    props.setSectionName('Account');
+    
+    useEffect(()=>{
+		props.setSectionName('Account');
+	}, [props]);
 
     return (
         <div className="item">

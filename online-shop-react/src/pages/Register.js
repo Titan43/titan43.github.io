@@ -2,7 +2,7 @@ import '../stylesheets/headers.css';
 import '../stylesheets/button.css';
 import '../stylesheets/form.css';
 import { useNavigate } from 'react-router-dom';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { UserCreate } from '../components/UserCreate';
 import { loginUser } from '../components/Auth';
 
@@ -17,7 +17,10 @@ const Register = (props) => {
     dob: '',
     password: '',
   });
-  props.setSectionName('Register');
+
+  useEffect(()=>{
+		props.setSectionName('Register');
+	}, [props]);
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;

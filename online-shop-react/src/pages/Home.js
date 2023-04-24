@@ -21,8 +21,10 @@ const Home = (props) => {
   function loadNextItems() {
     setCurrentPage(currentPage + 1);
   }
-
-  props.setSectionName('Home');
+  
+  useEffect(()=>{
+		props.setSectionName('Home');
+	}, [props]);
 
   useEffect(() => {
     async function obtainProducts(page, count) {

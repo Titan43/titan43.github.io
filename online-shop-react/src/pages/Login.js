@@ -1,13 +1,12 @@
 import '../stylesheets/headers.css';
 import '../stylesheets/button.css';
 import '../stylesheets/form.css'
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {loginUser } from '../components/Auth';
 
 const Login = (props) => {
 
-  props.setSectionName('Login');
   props.removeCookie('token');
   const navigate = useNavigate();
   const [username, setUsername] = useState('');
@@ -21,6 +20,10 @@ const Login = (props) => {
   const onRegister = () => {
     navigate('/register');
   }
+
+  useEffect(()=>{
+		props.setSectionName('Login');
+	}, [props]);
 
   return (
     <div className='Login'>

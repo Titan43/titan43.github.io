@@ -1,8 +1,12 @@
+import { useEffect } from 'react';
 import '../stylesheets/headers.css';
 import '../stylesheets/item.css';
 
 const NotFound = ({setSectionName}) => {
-    setSectionName('Not Found')
+    useEffect(()=>{
+		setSectionName('Not Found')
+	}, [setSectionName]);
+
     return <div className='item'>
         <h2>404 Not Found</h2>
     </div>;
