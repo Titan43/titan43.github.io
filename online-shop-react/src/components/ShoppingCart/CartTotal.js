@@ -6,7 +6,7 @@ function CartTotal(props) {
         <div className="cart-total item">
             <h3>Total: {props.total}</h3>
             <button href="#" className="btn" id = "orderBtn">Order</button>
-            <button href="#" className="btn remove" id = "cancelOrderBtn">Cancel</button>
+            <button href="#" className="btn remove" id = "cancelOrderBtn" onClick={props.handleCancel}>Cancel</button>
         </div>
     );
 }

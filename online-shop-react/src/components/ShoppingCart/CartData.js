@@ -1,6 +1,6 @@
 import { ORDER_LINK} from '../constants';
 
-export const CartData = async (cookies, setCart, setCartEmpty, handleMessage) => {
+export const CartData = async (cookies, setCart, setIsLoading, setCartLoaded, handleMessage) => {
   try {
     const response = await fetch(`${ORDER_LINK}/myOrder`, {
       method: 'GET',
@@ -11,15 +11,18 @@ export const CartData = async (cookies, setCart, setCartEmpty, handleMessage) =>
     });
     if (!response.ok) {
       const error = await response.text();
-      setCartEmpty(true);
       throw new Error(error);
     }
     else{
       const data = await response.json();
       setCart(data);
+      setIsLoading(false);
+      setCartLoaded(true);
     }
   }
   catch (error) {
+    setIsLoading(false);
+    setCartLoaded(true);
     handleMessage(error.message, 'error');
   }
 };
