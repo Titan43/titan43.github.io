@@ -17,3 +17,24 @@ a:hover {
     color: #fff;
     background-color: #333;
 }
+
+@media (max-width: 768px) {
+    .auth-buttons {
+      position: relative;
+      top: auto;
+      left: 0;
+    }
+  }
+
+  @media (min-width:768px) and (max-width: 1020px) {
+    
+    .auth-buttons{
+        position: relative;
+        right: auto;
+        transform: none;
+    }
+    
+    .auth-buttons a{
+        margin: 10px;
+    }
+    }

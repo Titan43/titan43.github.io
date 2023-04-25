@@ -48,10 +48,5 @@ button + button {
     background-color: #8b0000;
   }
 
-  @media (max-width: 768px) {
-    .auth-buttons {
-      position: relative;
-      top: auto;
-      left: 0;
-    }
-  }
+  
+    
