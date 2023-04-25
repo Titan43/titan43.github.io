@@ -10,6 +10,7 @@ import Notification from './components/Notification';
 import Account from './pages/Account';
 import Home from './pages/Home';
 import { UserData } from './components/UserData';
+import ShoppingCart from './pages/ShoppingCart';
 
 function App() {
   const [cookies, setCookie, removeCookie] = useCookies(['token']);
@@ -88,6 +89,12 @@ function App() {
               setSectionName={setSectionName}
               role={role}
               userId={userId}
+              />}/>
+            <Route path='/shopping_cart' element={<ShoppingCart setSectionName={setSectionName}
+              sectionName={sectionName}
+              isLoggedIn={isLoggedIn}
+              handleMessage={handleMessage}
+              cookies={cookies}
               />}/>
             <Route path="*" element={<NotFound setSectionName={setSectionName}/>}/>
           </Route>

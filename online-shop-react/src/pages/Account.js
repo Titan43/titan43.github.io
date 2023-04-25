@@ -22,8 +22,8 @@ const Account = (props) => {
                 navigate('/login');
         }
         else{
-        UserData(props.cookies, setUser, props.handleMessage).then(() => {
-            setDataLoaded(true);
+            UserData(props.cookies, setUser, props.handleMessage).then(() => {
+                setDataLoaded(true);
         });
     }
     }, [props, navigate]);
