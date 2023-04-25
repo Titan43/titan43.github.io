@@ -6,6 +6,7 @@ import { CartData } from "../components/ShoppingCart/CartData";
 import CartItem from "../components/ShoppingCart/CartItem";
 import { RemoveCartItem } from "../components/ShoppingCart/RemoveCartItem";
 import { CancelOrder } from "../components/ShoppingCart/CancelOrder";
+import { ConfirmOrder } from "../components/ShoppingCart/ConfirmOrder";
 
 const ShoppingCart = (props) => {
   const navigate = useNavigate();
@@ -13,6 +14,7 @@ const ShoppingCart = (props) => {
   const [cartData, setCartData] = useState(null);
   const [cartLoaded, setCartLoaded] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [confirmed, setConfirmed] = useState(false);
 
   useEffect(() => {
     if (!props.isLoggedIn) {
@@ -28,6 +30,7 @@ const ShoppingCart = (props) => {
 
   const handleRemoveItem = (product_id) => {
     RemoveCartItem(props.cookies, product_id, props.handleMessage);
+    setCartLoaded(false);
   };
 
   const handleCancel = () => {
@@ -38,6 +41,16 @@ const ShoppingCart = (props) => {
       })
     setCartLoaded(false);
   };
+
+  const handleConfirm = () => {
+    ConfirmOrder(props.cookies, setConfirmed, props.handleMessage);
+  };
+
+  useEffect(()=>{
+    if(confirmed){
+      setCartData(null);
+    }
+  }, [confirmed]);
 
   return (
     <div className="item">
@@ -54,7 +67,9 @@ const ShoppingCart = (props) => {
               />
             ))}
           </div>
-          <CartTotal total={cartData.total_price} handleCancel={handleCancel} />
+          <CartTotal total={cartData.total_price} 
+            handleCancel={handleCancel} 
+            handleConfirm={handleConfirm}/>
         </>
       ) : (
         <h2>You haven't ordered anything</h2>
