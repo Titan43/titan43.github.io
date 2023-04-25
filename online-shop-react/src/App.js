@@ -9,6 +9,7 @@ import NotFound from './pages/404';
 import Notification from './components/Notification';
 import Account from './pages/Account';
 import Home from './pages/Home';
+import { UserData } from './components/UserData';
 
 function App() {
   const [cookies, setCookie, removeCookie] = useCookies(['token']);
@@ -16,6 +17,9 @@ function App() {
   const [message, setMessage] = useState('');
   const [type, setType] = useState('');
   const [notificationUpdateTime, setNotificationUpdateTime] = useState(Date.now());
+  const [userId, setUserId] = useState('');
+  const [role, setRole] = useState('');
+  const [userData, setUserData] = useState(null);
 
   function isTokenValid(token){
     if(!token) return false;
@@ -31,6 +35,20 @@ function App() {
   useEffect(()=>{
     setIsLoggedIn(isTokenValid(cookies.token))
   }, [cookies.token]);
+
+  useEffect(()=>{
+    if(isLoggedIn && cookies.token){
+      UserData(cookies, setUserData, handleMessage)
+    }
+  }, [isLoggedIn, cookies]);
+
+  useEffect(()=>{
+    if(userData){
+      setUserId(userData.id);
+      setRole(userData.role);
+      setUserData(null);
+    }
+  }, [userData]);
 
   const handleMessage = (m, t) =>{
     setMessage(m);
@@ -68,6 +86,8 @@ function App() {
             <Route path='/home' element={<Home 
               handleMessage={handleMessage}
               setSectionName={setSectionName}
+              role={role}
+              userId={userId}
               />}/>
             <Route path="*" element={<NotFound setSectionName={setSectionName}/>}/>
           </Route>

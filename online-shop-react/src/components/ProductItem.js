@@ -11,7 +11,12 @@ function ProductItem(props) {
             <p>Description: {description}</p>
             <p>Price: {price}</p>
             <p>Available: {quantity}</p>
-            <button className="btn" >Add to Cart</button>
+            {props.userId===props.item.user_id && props.role === 'VENDOR'
+                ?
+                <button className="btn" >Change quantity</button>
+                :
+                <button className="btn" >Add to Cart</button>
+            }
         </div>
     );
 }

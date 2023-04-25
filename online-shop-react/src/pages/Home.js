@@ -59,7 +59,7 @@ const Home = (props) => {
       ) : items.length > 0 ? (
         <div className="items">
           {items.map((item) => (
-            <ProductItem item={item} key={item.id} />
+            <ProductItem userId={props.userId} role={props.role} item={item} key={item.id} />
           ))}
         </div>
       ) : (
@@ -67,7 +67,7 @@ const Home = (props) => {
           <h3>No products to display</h3>
         </div>
       )}
-      <ProductLoadButtons onPrevClick={loadPrevItems} 
+      <ProductLoadButtons role={props.role} onPrevClick={loadPrevItems} 
         onNextClick={loadNextItems}/>
     </div>
   );
