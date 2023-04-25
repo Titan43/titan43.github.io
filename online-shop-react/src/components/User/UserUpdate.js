@@ -1,4 +1,4 @@
-import { USER_LINK } from './constants';
+import { USER_LINK } from '../constants';
 
 export const UserUpdate = async (username, newwData, cookies, handleMessage) => {
   try {

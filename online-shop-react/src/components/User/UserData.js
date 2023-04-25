@@ -1,8 +1,8 @@
-import { ORDER_LINK} from './constants';
+import { USER_LINK } from '../constants';
 
-export const CartData = async (cookies, setCart, handleMessage) => {
+export const UserData = async (cookies, setUser, handleMessage) => {
   try {
-    const response = await fetch(`${ORDER_LINK}/myOrder`, {
+    const response = await fetch(USER_LINK, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
@@ -15,7 +15,8 @@ export const CartData = async (cookies, setCart, handleMessage) => {
     }
     else{
       const data = await response.json();
-      setCart(data);
+      data.password = null;
+      setUser(data);
     }
   }
   catch (error) {

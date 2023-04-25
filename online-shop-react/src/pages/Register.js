@@ -3,7 +3,7 @@ import '../stylesheets/button.css';
 import '../stylesheets/form.css';
 import { useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-import { UserCreate } from '../components/UserCreate';
+import { UserCreate } from '../components/User/UserCreate';
 import { loginUser } from '../components/Auth';
 
 const Register = (props) => {

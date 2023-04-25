@@ -4,10 +4,10 @@ import '../stylesheets/item.css';
 import '../stylesheets/popup.css';
 import { useNavigate } from 'react-router-dom';
 import Dashboard from '../components/Dashboard';
-import UpdateUserForm from '../components/UserUpdateForm';
-import UserBlock from '../components/UserView';
-import { UserData } from '../components/UserData';
-import { UserDelete } from '../components/UserDelete';
+import UpdateUserForm from '../components/User/UserUpdateForm';
+import UserBlock from '../components/User/UserView';
+import { UserData } from '../components/User/UserData';
+import { UserDelete } from '../components/User/UserDelete';
 
 const Account = (props) => {
 

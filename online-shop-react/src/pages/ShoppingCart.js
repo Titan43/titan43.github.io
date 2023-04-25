@@ -1,10 +1,10 @@
 import { useEffect, useState} from "react";
 import "../stylesheets/item.css";
-import CartTotal from "../components/CartTotal";
+import CartTotal from "../components/ShoppingCart/CartTotal";
 import { useNavigate } from "react-router-dom";
-import { CartData } from "../components/CartData";
-import CartItem from "../components/CartItem";
-import { RemoveCartItem } from "../components/RemoveCartItem";
+import { CartData } from "../components/ShoppingCart/CartData";
+import CartItem from "../components/ShoppingCart/CartItem";
+import { RemoveCartItem } from "../components/ShoppingCart/RemoveCartItem";
 
 const ShoppingCart = (props) => {
   
@@ -12,19 +12,18 @@ const ShoppingCart = (props) => {
 
   const [cartData, setCartData] = useState(null);
   const [cartUpdateTime, setCartUpdateTime] = useState(Date.now());
-
-  useEffect(()=>{
-		props.setSectionName('Shopping cart');
-	}, [props]);
+  const [cartEmpty, setCartEmpty] = useState(false);
 
   useEffect(() => {
-      if (!props.isLoggedIn) {
-          if(props.sectionName!=='Login')
-              navigate('/login');
-      }else{
-        CartData(props.cookies, setCartData, props.handleMessage);
-      }
-  }, [props, navigate, cartUpdateTime]);
+    if (!props.isLoggedIn) {
+        if(props.sectionName!=='Login')
+            navigate('/login');
+    }else{
+      if(!cartEmpty)
+        CartData(props.cookies, setCartData, setCartEmpty, props.handleMessage);
+    }
+    props.setSectionName('Shopping cart');
+}, [props, navigate, cartUpdateTime, cartEmpty]);
 
   const handleRemoveItem = (product_id) => {
     RemoveCartItem(props.cookies, product_id, props.handleMessage);
@@ -33,7 +32,7 @@ const ShoppingCart = (props) => {
 
   return (
     <div className = "item">
-      { cartData ?
+      { cartData &&
         cartData.ordered_products.length>0 ?
         (<>
           <div className="cart-items">
@@ -45,9 +44,9 @@ const ShoppingCart = (props) => {
         </>
         )
         :
-          <></>
-        :
-          <></>
+          <h2>
+            You haven't ordered anything
+          </h2>
       }
     </div>
   );

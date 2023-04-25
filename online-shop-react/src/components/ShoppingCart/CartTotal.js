@@ -1,6 +1,5 @@
-import '../stylesheets/headers.css';
-import '../stylesheets/button.css';
-
+import '../../stylesheets/headers.css';
+import '../../stylesheets/button.css';
 function CartTotal(props) {
 
     return (

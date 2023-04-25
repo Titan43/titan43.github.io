@@ -1,9 +1,9 @@
-import { USER_LINK } from './constants';
+import { ORDER_LINK} from '../constants';
 
-export const UserDelete = async (username, cookies, navigate, handleMessage) => {
+export const CartData = async (cookies, setCart, setCartEmpty, handleMessage) => {
   try {
-    const response = await fetch(USER_LINK+`?username=${username}`, {
-      method: 'DELETE',
+    const response = await fetch(`${ORDER_LINK}/myOrder`, {
+      method: 'GET',
       headers: {
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${cookies.token}`,
@@ -11,12 +11,12 @@ export const UserDelete = async (username, cookies, navigate, handleMessage) => 
     });
     if (!response.ok) {
       const error = await response.text();
+      setCartEmpty(true);
       throw new Error(error);
     }
     else{
-      const data = await response.text();
-      navigate('/login');
-      handleMessage(data);
+      const data = await response.json();
+      setCart(data);
     }
   }
   catch (error) {

@@ -1,6 +1,6 @@
-import '../stylesheets/headers.css';
-import '../stylesheets/button.css';
-import '../stylesheets/form.css';
+import '../../stylesheets/headers.css';
+import '../../stylesheets/button.css';
+import '../../stylesheets/form.css';
 import { useState } from 'react';
 import { UserUpdate } from './UserUpdate';
 

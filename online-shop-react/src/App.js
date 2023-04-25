@@ -9,7 +9,7 @@ import NotFound from './pages/404';
 import Notification from './components/Notification';
 import Account from './pages/Account';
 import Home from './pages/Home';
-import { UserData } from './components/UserData';
+import { UserData } from './components/User/UserData';
 import ShoppingCart from './pages/ShoppingCart';
 
 function App() {

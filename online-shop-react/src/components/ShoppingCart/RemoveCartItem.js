@@ -1,4 +1,4 @@
-import { ORDER_LINK} from './constants';
+import { ORDER_LINK} from '../constants';
 
 export const RemoveCartItem = async (cookies, productId, handleMessage) => {
   try {

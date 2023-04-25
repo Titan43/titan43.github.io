@@ -1,9 +1,9 @@
-import { USER_LINK } from './constants';
+import { USER_LINK } from '../constants';
 
-export const UserData = async (cookies, setUser, handleMessage) => {
+export const UserDelete = async (username, cookies, navigate, handleMessage) => {
   try {
-    const response = await fetch(USER_LINK, {
-      method: 'GET',
+    const response = await fetch(USER_LINK+`?username=${username}`, {
+      method: 'DELETE',
       headers: {
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${cookies.token}`,
@@ -14,9 +14,9 @@ export const UserData = async (cookies, setUser, handleMessage) => {
       throw new Error(error);
     }
     else{
-      const data = await response.json();
-      data.password = null;
-      setUser(data);
+      const data = await response.text();
+      navigate('/login');
+      handleMessage(data);
     }
   }
   catch (error) {
