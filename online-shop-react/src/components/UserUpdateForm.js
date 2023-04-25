@@ -29,7 +29,7 @@ function UpdateUserForm(props) {
   }
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit} className='popup'>
       <label htmlFor="firstName">First Name:</label>
       <input
         type="text"

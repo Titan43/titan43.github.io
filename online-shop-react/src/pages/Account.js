@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import '../stylesheets/headers.css';
 import '../stylesheets/item.css';
+import '../stylesheets/popup.css';
 import { useNavigate } from 'react-router-dom';
 import Dashboard from '../components/Dashboard';
 import UpdateUserForm from '../components/UserUpdateForm';
@@ -43,12 +44,8 @@ const Account = (props) => {
 	}, [props]);
 
     return (
-        <div className="item">
-          <div className="cart-items">
-          {dataLoaded ? (
-             <>
-                <UserBlock user={user} />
-                {showUserUpdate ? (
+        <>
+        {showUserUpdate ? (
                 <UpdateUserForm handleUserUpdateForm={handleUserUpdateForm} 
                     username={user.username}
                     cookies={props.cookies}
@@ -56,6 +53,11 @@ const Account = (props) => {
                 ) : (
                 <></>
                 )}
+        <div className={`item ${showUserUpdate ? 'blur' : ''}`}>
+          <div className="cart-items">
+          {dataLoaded ? (
+             <>
+                <UserBlock user={user} />
                 {user && <Dashboard userRole={user.role} 
                     handleUserUpdateForm={handleUserUpdateForm}
                     handleUserDelete={handleUserDelete} />}
@@ -65,6 +67,7 @@ const Account = (props) => {
             )}
           </div>
         </div>
+        </>
     );
 }
 
