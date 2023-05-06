@@ -1,9 +1,9 @@
 import { ORDER_LINK} from '../constants';
 
-export const ConfirmOrder = async (cookies, setConfirmed, handleMessage) => {
+export const ConfirmOrder = async (cookies, setCartData, handleMessage) => {
   try {
     const response = await fetch(`${ORDER_LINK}/confirm`, {
-        method: 'GET',
+        method: 'POST',
         headers: {
           'Authorization': `Bearer ${cookies.token}`,
         },
@@ -14,8 +14,8 @@ export const ConfirmOrder = async (cookies, setConfirmed, handleMessage) => {
     }
     else{
       const data = await response.text();
+      setCartData(null);
       handleMessage(data);
-      setConfirmed(true);
     }
   }
   catch (error) {

@@ -28,6 +28,7 @@ const ShopNow = (props) => {
 	}, [props]);
 
   useEffect(() => {
+    setLoading(true);
     const fetchProducts = async () => {
       try {
         const response = await fetch(
@@ -52,7 +53,7 @@ const ShopNow = (props) => {
     };
     setTimeout(() => {
       fetchProducts();
-    }, 100);
+    }, 150);
   }, [currentPage, loadPrevItems, props]);
   
 

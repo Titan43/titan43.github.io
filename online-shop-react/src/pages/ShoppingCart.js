@@ -1,76 +1,86 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef} from "react";
 import "../stylesheets/item.css";
-import CartTotal from "../components/ShoppingCart/CartTotal";
 import { useNavigate } from "react-router-dom";
-import { CartData } from "../components/ShoppingCart/CartData";
-import CartItem from "../components/ShoppingCart/CartItem";
-import { RemoveCartItem } from "../components/ShoppingCart/RemoveCartItem";
-import { CancelOrder } from "../components/ShoppingCart/CancelOrder";
-import { ConfirmOrder } from "../components/ShoppingCart/ConfirmOrder";
+import { ORDER_LINK } from '../components/constants';
+import LoadingSpinner from "../components/Loading";
+import CartListing from "../components/ShoppingCart/CartListing";
 
 const ShoppingCart = (props) => {
   const navigate = useNavigate();
 
   const [cartData, setCartData] = useState(null);
-  const [cartLoaded, setCartLoaded] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const [confirmed, setConfirmed] = useState(false);
+  const [cartUpdateTime, setCartUpdateTime] = useState(Date.now());
 
   useEffect(() => {
+    props.setSectionName("Shopping cart");
     if (!props.isLoggedIn) {
       if (props.sectionName !== "Login") navigate("/login");
-    } else {
-      if (!isLoading && !cartLoaded) {
-        setIsLoading(true);
-        CartData(props.cookies, setCartData, setIsLoading, setCartLoaded, props.handleMessage)
-      }
     }
-    props.setSectionName("Shopping cart");
-  }, [props, navigate, isLoading, cartLoaded]); 
+  }, [props, navigate]);
 
-  const handleRemoveItem = (product_id) => {
-    RemoveCartItem(props.cookies, product_id, props.handleMessage);
-    setCartLoaded(false);
-  };
+  const cookies = props.cookies;
+  const handleMessage = props.handleMessage;
 
-  const handleCancel = () => {
-    CancelOrder(props.cookies, props.handleMessage)
-      .then(() => {
+  const handleMessageRef = useRef(handleMessage);
+  const isLoadingRef = useRef(isLoading);
+
+  useEffect(() => {
+    setIsLoading(true);
+    const obtainCartData = async () => {
+      if(!isLoadingRef.current)
+      try {
+        //ACHTUNG, КОСТИЛЬ!
+        isLoadingRef.current = true;
+        const timeoutPromise = new Promise((_, reject) => {
+          setTimeout(() => {
+            reject(new Error("Request timed out"));
+          }, 1000);
+        });
+  
+        const response = await Promise.race([
+          fetch(`${ORDER_LINK}/myOrder`, {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${cookies.token}`,
+            },
+          }),
+          timeoutPromise,
+        ]);
+  
+        if (!response.ok) {
+          const error = await response.text();
+          throw new Error(error);
+        } else {
+          const data = await response.json();
+          setCartData(data);
+          setIsLoading(false);
+        }
+      } catch (error) {
+        handleMessageRef.current(error.message, "error");
         setCartData(null);
         setIsLoading(false);
-      })
-    setCartLoaded(false);
-  };
-
-  const handleConfirm = () => {
-    ConfirmOrder(props.cookies, setConfirmed, props.handleMessage);
-  };
-
-  useEffect(()=>{
-    if(confirmed){
-      setCartData(null);
-    }
-  }, [confirmed]);
+      }
+    };
+    setTimeout(() => {
+      obtainCartData();
+    }, 150);
+    
+  }, [cookies, cartUpdateTime, isLoadingRef]);
 
   return (
     <div className="item">
       {isLoading ? (
-        <h2>Loading...</h2>
+        <LoadingSpinner />
       ) : cartData && cartData.ordered_products.length > 0 ? (
-        <>
-          <div className="cart-items">
-            {cartData.ordered_products.map((item) => (
-              <CartItem
-                item={item}
-                key={item.productId}
-                handleRemoveItem={handleRemoveItem}
-              />
-            ))}
-          </div>
-          <CartTotal total={cartData.total_price} 
-            handleCancel={handleCancel} 
-            handleConfirm={handleConfirm}/>
-        </>
+        <CartListing
+          setCartUpdateTime={setCartUpdateTime}
+          cookies={cookies}
+          handleMessage={handleMessage}
+          cartData={cartData}
+          setCartData={setCartData}
+        />
       ) : (
         <h2>You haven't ordered anything</h2>
       )}
