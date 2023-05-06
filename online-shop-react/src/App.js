@@ -1,20 +1,20 @@
 import React, { useEffect, useState } from 'react';
 import { useCookies } from 'react-cookie';
 import { Route, BrowserRouter, Routes} from 'react-router-dom';
-import About from "./pages/About";
+import Home from "./pages/Home";
 import Navbar from './components/Navbar';
 import Login from './pages/Login';
 import Register from './pages/Register';
 import NotFound from './pages/404';
 import Notification from './components/Notification';
 import Account from './pages/Account';
-import Home from './pages/Home';
+import ShopNow from './pages/ShopNow';
 import { UserData } from './components/User/UserData';
 import ShoppingCart from './pages/ShoppingCart';
 
 function App() {
   const [cookies, setCookie, removeCookie] = useCookies(['token']);
-  const [sectionName, setSectionName] = useState("About");
+  const [sectionName, setSectionName] = useState("Home");
   const [message, setMessage] = useState('');
   const [type, setType] = useState('');
   const [notificationUpdateTime, setNotificationUpdateTime] = useState(Date.now());
@@ -61,7 +61,7 @@ function App() {
       <BrowserRouter >
         <Routes>
           <Route path="/" element={<Navbar sectionName={sectionName} isLoggedIn={isLoggedIn}/>}>
-            <Route index element={<About setSectionName={setSectionName}/>}/>
+            <Route index element={<Home setSectionName={setSectionName}/>}/>
             <Route path='/login' 
               element={
                 <Login
@@ -84,7 +84,7 @@ function App() {
               handleMessage={handleMessage}
               />}
             />
-            <Route path='/home' element={<Home 
+            <Route path='/shop' element={<ShopNow 
               handleMessage={handleMessage}
               setSectionName={setSectionName}
               role={role}

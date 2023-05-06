@@ -29,8 +29,8 @@ const Navbar = (props) => {
           <nav className={showMenu? 'sidebar':'navmenu'}>
             <ul>
               <li>
-                <Link to="/home" className="btn">
-                  Home
+                <Link to="/shop" className="btn">
+                  Shop now
                 </Link>
               </li>
               <li>
@@ -40,7 +40,7 @@ const Navbar = (props) => {
               </li>
               <li>
                 <Link to="/" className="btn">
-                  About
+                  Home
                 </Link>
               </li>
               <li>
