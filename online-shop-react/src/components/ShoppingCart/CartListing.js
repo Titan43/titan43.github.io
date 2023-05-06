@@ -7,7 +7,7 @@ import CartTotal from "./CartTotal";
 const CartListing = (props) => {
   const handleRemoveItem = (product_id) => {
     RemoveCartItem(props.cookies, product_id, props.handleMessage)
-      .then(props.setCartUpdateTime(()=>{Date.now();})
+      .then(()=>{props.setCartUpdateTime(Date.now())}
     );
   };
 

@@ -57,11 +57,13 @@ const ShoppingCart = (props) => {
           const data = await response.json();
           setCartData(data);
           setIsLoading(false);
+          isLoadingRef.current=false;
         }
       } catch (error) {
         handleMessageRef.current(error.message, "error");
         setCartData(null);
         setIsLoading(false);
+        isLoadingRef.current=false;
       }
     };
     setTimeout(() => {
