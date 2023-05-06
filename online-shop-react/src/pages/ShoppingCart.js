@@ -24,11 +24,12 @@ const ShoppingCart = (props) => {
 
   const handleMessageRef = useRef(handleMessage);
   const isLoadingRef = useRef(isLoading);
+  const isLoggedInRef = useRef(props.isLoggedIn);
 
   useEffect(() => {
     setIsLoading(true);
     const obtainCartData = async () => {
-      if(!isLoadingRef.current)
+      if(!isLoadingRef.current && isLoggedInRef.current)
       try {
         //ACHTUNG, КОСТИЛЬ!
         isLoadingRef.current = true;
@@ -67,7 +68,7 @@ const ShoppingCart = (props) => {
       obtainCartData();
     }, 150);
     
-  }, [cookies, cartUpdateTime, isLoadingRef]);
+  }, [cookies, cartUpdateTime, isLoadingRef, isLoggedInRef]);
 
   return (
     <div className="item">
