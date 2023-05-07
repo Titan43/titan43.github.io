@@ -15,14 +15,17 @@ const ShopNow = (props) => {
   const [showAddProduct, setShowAddProduct] = useState(false);
   const [showChangeQuantity, setShowChangeQuantity] = useState(false);
 
+  const[currentQuantity, setCurrentQuantity] = useState(0);
+  const[prodId, setProdId] = useState(0);
+
   const handleAddProductForm = () => {
-    showAddProduct ? setShowAddProduct(false)
-          : setShowAddProduct(true);
+    setShowAddProduct(!showAddProduct);
   }
 
-  const handleChangeQuantityForm= () => {
-    showChangeQuantity ? setShowChangeQuantity(false)
-          : setShowChangeQuantity(true);
+  const handleChangeQuantityForm = (prod_id, quantity) => {
+    setCurrentQuantity(quantity)
+    setProdId(prod_id);
+    setShowChangeQuantity(!showChangeQuantity);
   }
 
   const loadPrevItems = useCallback(() => {
@@ -76,7 +79,12 @@ const ShopNow = (props) => {
     <>
       {
         showChangeQuantity?
-        <ChangeQuantityForm/>
+        <ChangeQuantityForm
+        handleMessage={props.handleMessage}
+        cookies={props.cookies} 
+        handleChangeQuantityForm={handleChangeQuantityForm}
+        currentQuantity={currentQuantity}
+        prodId={prodId}/>
         :
         <></>
       }
@@ -95,7 +103,9 @@ const ShopNow = (props) => {
       ) : items.length > 0 ? (
         <div className="items">
           {items.map((item) => (
-            <ProductItem userId={props.userId} role={props.role} item={item} key={item.id} />
+            <ProductItem 
+              userId={props.userId} role={props.role} item={item} key={item.id} 
+              handleChangeQuantityForm={handleChangeQuantityForm}/>
           ))}
         </div>
       ) : (

@@ -48,5 +48,8 @@ button + button {
     background-color: #8b0000;
   }
 
+  .disable{
+    cursor: not-allowed;
+  }
   
     

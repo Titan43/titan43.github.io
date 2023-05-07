@@ -2,6 +2,7 @@ import '../../stylesheets/headers.css';
 import '../../stylesheets/button.css';
 import '../../stylesheets/form.css';
 import { useState } from 'react';
+import { changeQuantityBy } from './ChangeQuantity';
 
 const ChangeQuantityForm = (props) => {
 
@@ -9,13 +10,17 @@ const ChangeQuantityForm = (props) => {
   
     const onSubmit = (event) => {
       event.preventDefault();
+      changeQuantityBy(props.cookies, props.prodId, 
+      Math.floor(quantity), props.handleMessage);
+      setQuantity('');
+      props.handleChangeQuantityForm();
     }
   
     return (
-      <div className='popup'>
-          <form onSubmit={onSubmit}>
-                  <label htmlFor="quantity">Change Quantity by:</label>
-                  <input type="number"
+          <form onSubmit={onSubmit} className='popup'>
+                  <p>Current Quantity: {props.currentQuantity}</p>
+                  <label htmlFor="quantity">Change quantity by:</label>
+                  <input type="number" step={1}
               value={quantity} onChange={(event) => setQuantity(event.target.value)}
               required/>
                   <button type="submit" className="btn">Change</button>
@@ -25,9 +30,8 @@ const ChangeQuantityForm = (props) => {
                      onClick={props.handleChangeQuantityForm}
                     >
                     Cancel
-                    </button>
+                  </button>
           </form>
-        </div>
     );
   }
   

@@ -2,8 +2,8 @@ import '../../stylesheets/headers.css';
 import '../../stylesheets/button.css';
 
 function ProductItem(props) {
-    const { id, name, description, price, quantity } = props.item;
-
+    const { id, name, description, price, quantity} = props.item;
+    const isOutOfStock = quantity===0;
     return (
         <div className="item">
             <h2>{name}</h2>
@@ -13,9 +13,13 @@ function ProductItem(props) {
             <p>Available: {quantity}</p>
             {props.userId===props.item.user_id && props.role === 'VENDOR'
                 ?
-                <button className="btn" >Change quantity</button>
+                <button className="btn" 
+                    onClick={()=>{props.handleChangeQuantityForm(id, quantity)}}>
+                        Change quantity
+                </button>
                 :
-                <button className="btn" >Add to Cart</button>
+                <button disabled={isOutOfStock} className={`btn ${isOutOfStock? 'remove disable' : ''}`} >
+                    {isOutOfStock? 'Out of stock' : 'Add to Cart'}</button>
             }
         </div>
     );
