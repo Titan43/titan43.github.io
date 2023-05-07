@@ -18,7 +18,9 @@ function ProductItem(props) {
                         Change quantity
                 </button>
                 :
-                <button disabled={isOutOfStock} className={`btn ${isOutOfStock? 'remove disable' : ''}`} >
+                <button disabled={isOutOfStock} 
+                className={`btn ${isOutOfStock? 'remove disable' : ''}`} 
+                onClick={() => { props.handleShowOrderProduct(id, quantity, name)}}>
                     {isOutOfStock? 'Out of stock' : 'Add to Cart'}</button>
             }
         </div>

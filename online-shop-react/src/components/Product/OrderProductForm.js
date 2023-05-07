@@ -2,31 +2,32 @@ import '../../stylesheets/headers.css';
 import '../../stylesheets/button.css';
 import '../../stylesheets/form.css';
 import { useState } from 'react';
-import { changeQuantityBy } from './ChangeQuantity';
+import { orderProduct } from './OrderProduct';
 
-const ChangeQuantityForm = (props) => {
+const OrderProductForm = (props) => {
 
     const [quantity, setQuantity] = useState('');
   
     const onSubmit = (event) => {
       event.preventDefault();
-      changeQuantityBy(props.cookies, props.prodId, 
+      orderProduct(props.cookies, props.prodId, 
       Math.floor(quantity), props.handleMessage);
-      props.handleChangeQuantityForm();
+      props.handleShowOrderProduct();
     }
   
     return (
           <form onSubmit={onSubmit} className='popup'>
-                  <p>Current Quantity: {props.currentQuantity}</p>
-                  <label htmlFor="quantity">Change quantity by:</label>
+                  <p>Product name:{props.prodName}</p>
+                  <p>Available:{props.currentQuantity}</p>
+                  <label htmlFor="quantity">Amount of products to orders:</label>
                   <input type="number" step={1}
               value={quantity} onChange={(event) => setQuantity(event.target.value)}
               required/>
-                  <button type="submit" className="btn">Change</button>
+                  <button type="submit" className="btn">Order</button>
                   <button
                     type="button"
                      className="btn remove"
-                     onClick={props.handleChangeQuantityForm}
+                     onClick={props.handleShowOrderProduct}
                     >
                     Cancel
                   </button>
@@ -34,4 +35,4 @@ const ChangeQuantityForm = (props) => {
     );
   }
   
-  export default ChangeQuantityForm;
+  export default OrderProductForm;

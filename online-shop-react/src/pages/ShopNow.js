@@ -6,6 +6,7 @@ import "../stylesheets/item.css";
 import LoadingSpinner from "../components/Loading";
 import AddProductForm from "../components/Product/AddProductForm"
 import ChangeQuantityForm from "../components/Product/ChangeQuantityForm";
+import OrderProductForm from "../components/Product/OrderProductForm";
 
 const ShopNow = (props) => {
   const [items, setItems] = useState([]);
@@ -14,12 +15,21 @@ const ShopNow = (props) => {
 
   const [showAddProduct, setShowAddProduct] = useState(false);
   const [showChangeQuantity, setShowChangeQuantity] = useState(false);
+  const [showOrderProduct, setShowOrderProduct] = useState(false);
 
   const[currentQuantity, setCurrentQuantity] = useState(0);
   const[prodId, setProdId] = useState(0);
+  const[prodName, setProdName] = useState('');
 
   const handleAddProductForm = () => {
     setShowAddProduct(!showAddProduct);
+  }
+
+  const handleShowOrderProduct = (prod_id, quantity, prodName) => {
+    setProdId(prod_id);
+    setCurrentQuantity(quantity);
+    setProdName(prodName);
+    setShowOrderProduct(!showOrderProduct);
   }
 
   const handleChangeQuantityForm = (prod_id, quantity) => {
@@ -78,6 +88,19 @@ const ShopNow = (props) => {
   return (
     <>
       {
+        showOrderProduct?
+        <OrderProductForm
+        handleMessage={props.handleMessage}
+        cookies={props.cookies} 
+        handleShowOrderProduct={handleShowOrderProduct}
+        prodId={prodId}
+        prodName={prodName}
+        currentQuantity={currentQuantity}
+        />
+        :
+        <></>
+      }
+      {
         showChangeQuantity?
         <ChangeQuantityForm
         handleMessage={props.handleMessage}
@@ -97,7 +120,9 @@ const ShopNow = (props) => {
         : <>
         </>
       }
-    <div className={`item ${showAddProduct || showChangeQuantity? 'blur' : ''}`}>
+    <div className={`item ${showAddProduct 
+      || showChangeQuantity
+      || showOrderProduct ? 'blur' : ''}`}>
       {loading ? (
         <LoadingSpinner/>
       ) : items.length > 0 ? (
@@ -105,7 +130,8 @@ const ShopNow = (props) => {
           {items.map((item) => (
             <ProductItem 
               userId={props.userId} role={props.role} item={item} key={item.id} 
-              handleChangeQuantityForm={handleChangeQuantityForm}/>
+              handleChangeQuantityForm={handleChangeQuantityForm}
+              handleShowOrderProduct={handleShowOrderProduct}/>
           ))}
         </div>
       ) : (
