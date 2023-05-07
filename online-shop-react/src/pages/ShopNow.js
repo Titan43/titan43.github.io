@@ -5,6 +5,7 @@ import { PRODUCT_LINK } from "../components/constants";
 import "../stylesheets/item.css";
 import LoadingSpinner from "../components/Loading";
 import AddProductForm from "../components/Product/AddProductForm"
+import ChangeQuantityForm from "../components/Product/ChangeQuantityForm";
 
 const ShopNow = (props) => {
   const [items, setItems] = useState([]);
@@ -12,10 +13,16 @@ const ShopNow = (props) => {
   const [loading, setLoading] = useState(true);
 
   const [showAddProduct, setShowAddProduct] = useState(false);
+  const [showChangeQuantity, setShowChangeQuantity] = useState(false);
 
   const handleAddProductForm = () => {
-    showAddProduct? setShowAddProduct(false)
+    showAddProduct ? setShowAddProduct(false)
           : setShowAddProduct(true);
+  }
+
+  const handleChangeQuantityForm= () => {
+    showChangeQuantity ? setShowChangeQuantity(false)
+          : setShowChangeQuantity(true);
   }
 
   const loadPrevItems = useCallback(() => {
@@ -68,6 +75,12 @@ const ShopNow = (props) => {
   return (
     <>
       {
+        showChangeQuantity?
+        <ChangeQuantityForm/>
+        :
+        <></>
+      }
+      {
         showAddProduct? 
           <AddProductForm handleAddProductForm={handleAddProductForm}
             cookies={props.cookies}
@@ -76,7 +89,7 @@ const ShopNow = (props) => {
         : <>
         </>
       }
-    <div className={`item ${showAddProduct? 'blur' : ''}`}>
+    <div className={`item ${showAddProduct || showChangeQuantity? 'blur' : ''}`}>
       {loading ? (
         <LoadingSpinner/>
       ) : items.length > 0 ? (
