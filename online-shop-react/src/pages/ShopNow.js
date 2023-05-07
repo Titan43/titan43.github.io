@@ -4,11 +4,19 @@ import ProductLoadButtons from "../components/Product/ProductLoadButtons";
 import { PRODUCT_LINK } from "../components/constants";
 import "../stylesheets/item.css";
 import LoadingSpinner from "../components/Loading";
+import AddProductForm from "../components/Product/AddProductForm"
 
 const ShopNow = (props) => {
   const [items, setItems] = useState([]);
   const [currentPage, setCurrentPage] = useState(0);
   const [loading, setLoading] = useState(true);
+
+  const [showAddProduct, setShowAddProduct] = useState(false);
+
+  const handleAddProductForm = () => {
+    showAddProduct? setShowAddProduct(false)
+          : setShowAddProduct(true);
+  }
 
   const loadPrevItems = useCallback(() => {
     if (currentPage > 0) {
@@ -58,7 +66,13 @@ const ShopNow = (props) => {
   
 
   return (
-    <div className="item">
+    <>
+      {
+        showAddProduct? <AddProductForm handleAddProductForm={handleAddProductForm}/>
+        : <>
+        </>
+      }
+    <div className={`item ${showAddProduct? 'blur' : ''}`}>
       {loading ? (
         <LoadingSpinner/>
       ) : items.length > 0 ? (
@@ -73,8 +87,10 @@ const ShopNow = (props) => {
         </div>
       )}
       <ProductLoadButtons role={props.role} onPrevClick={loadPrevItems} 
-        onNextClick={loadNextItems}/>
+        onNextClick={loadNextItems}
+        handleAddProductForm={handleAddProductForm}/>
     </div>
+    </>
   );
 }
 
