@@ -1,6 +1,6 @@
 import { useEffect, useState, useCallback } from "react";
-import ProductItem from "../components/ProductItem";
-import ProductLoadButtons from "../components/ProductLoadButtons";
+import ProductItem from "../components/Product/ProductItem";
+import ProductLoadButtons from "../components/Product/ProductLoadButtons";
 import { PRODUCT_LINK } from "../components/constants";
 import "../stylesheets/item.css";
 import LoadingSpinner from "../components/Loading";

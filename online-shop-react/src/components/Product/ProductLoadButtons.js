@@ -1,5 +1,5 @@
-import '../stylesheets/headers.css';
-import '../stylesheets/button.css';
+import '../../stylesheets/headers.css';
+import '../../stylesheets/button.css';
 
 function ProductLoadButtons({role, onPrevClick, onNextClick}) {
     return (

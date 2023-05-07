@@ -1,5 +1,5 @@
-import '../stylesheets/headers.css';
-import '../stylesheets/button.css';
+import '../../stylesheets/headers.css';
+import '../../stylesheets/button.css';
 
 function ProductItem(props) {
     const { id, name, description, price, quantity } = props.item;
