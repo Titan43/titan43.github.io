@@ -89,6 +89,7 @@ function App() {
               setSectionName={setSectionName}
               role={role}
               userId={userId}
+              cookies={cookies}
               />}/>
             <Route path='/shopping_cart' element={<ShoppingCart setSectionName={setSectionName}
               sectionName={sectionName}
@@ -99,7 +100,6 @@ function App() {
             <Route path="*" element={<NotFound setSectionName={setSectionName}/>}/>
           </Route>
         </Routes>
-        
       </BrowserRouter>
       <Notification message={message} type={type} notificationUpdateTime={notificationUpdateTime}/>
       </>

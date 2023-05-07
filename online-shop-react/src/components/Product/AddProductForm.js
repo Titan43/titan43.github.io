@@ -2,6 +2,7 @@ import '../../stylesheets/headers.css';
 import '../../stylesheets/button.css';
 import '../../stylesheets/form.css';
 import { useState } from 'react';
+import { CreateProduct } from './CreateProduct';
 
 function AddProductForm(props) {
   const [formData, setFormData] = useState({
@@ -13,6 +14,14 @@ function AddProductForm(props) {
 
   function handleSubmit(event) {
     event.preventDefault();
+    const roundedPrice = parseFloat(formData.price).toFixed(2);
+  
+    const updatedFormData = {
+      ...formData,
+      price: roundedPrice,
+    };
+  
+    CreateProduct(updatedFormData, props.cookies, props.handleMessage);
   }
 
   function handleInputChange(event) {
@@ -41,6 +50,7 @@ function AddProductForm(props) {
         type="number"
         id="product-price"
         name="price"
+        step={0.01}
         required
         value={formData.price}
         onChange={handleInputChange}

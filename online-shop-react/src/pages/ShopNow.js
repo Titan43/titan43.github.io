@@ -32,7 +32,7 @@ const ShopNow = (props) => {
   }
   
   useEffect(()=>{
-		props.setSectionName('ShopNow');
+		props.setSectionName('Shop Now');
 	}, [props]);
 
   useEffect(() => {
@@ -68,7 +68,11 @@ const ShopNow = (props) => {
   return (
     <>
       {
-        showAddProduct? <AddProductForm handleAddProductForm={handleAddProductForm}/>
+        showAddProduct? 
+          <AddProductForm handleAddProductForm={handleAddProductForm}
+            cookies={props.cookies}
+            handleMessage={props.handleMessage}
+          />
         : <>
         </>
       }
