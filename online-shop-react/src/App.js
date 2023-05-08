@@ -85,6 +85,7 @@ function App() {
               />}
             />
             <Route path='/shop' element={<ShopNow 
+              isLoggedIn={isLoggedIn}
               handleMessage={handleMessage}
               setSectionName={setSectionName}
               role={role}

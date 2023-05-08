@@ -1,4 +1,5 @@
-import { useEffect, useState, useCallback } from "react";
+import { useEffect, useState, useCallback} from "react";
+import { useNavigate } from "react-router-dom";
 import ProductItem from "../components/Product/ProductItem";
 import ProductLoadButtons from "../components/Product/ProductLoadButtons";
 import { PRODUCT_LINK } from "../components/constants";
@@ -21,11 +22,16 @@ const ShopNow = (props) => {
   const[prodId, setProdId] = useState(0);
   const[prodName, setProdName] = useState('');
 
+  const navigate = useNavigate();
+
   const handleAddProductForm = () => {
     setShowAddProduct(!showAddProduct);
   }
 
   const handleShowOrderProduct = (prod_id, quantity, prodName) => {
+    if(!props.isLoggedIn){
+      navigate('/login');
+    }
     setProdId(prod_id);
     setCurrentQuantity(quantity);
     setProdName(prodName);
