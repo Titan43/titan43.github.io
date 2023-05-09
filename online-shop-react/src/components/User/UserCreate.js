@@ -1,6 +1,7 @@
 import { USER_LINK } from "../constants";
 
 export const UserCreate = (formData, loginUser, setCookie,
+     setIsLoggedIn, previousSectionURL,
      navigate, handleMessage) =>{
     fetch(`${USER_LINK}/register`, {
     method: 'POST',
@@ -20,6 +21,8 @@ export const UserCreate = (formData, loginUser, setCookie,
       })
       .then((out) => {
         loginUser(formData.username, formData.password, setCookie, 
+          setIsLoggedIn,
+          previousSectionURL,
           navigate, handleMessage);
         handleMessage(out);
       })

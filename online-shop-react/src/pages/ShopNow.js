@@ -58,6 +58,7 @@ const ShopNow = (props) => {
   }
   
   useEffect(()=>{
+    props.setPreviousSectionURL('/shop');
 		props.setSectionName('Shop Now');
 	}, [props]);
 

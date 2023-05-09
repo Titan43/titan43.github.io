@@ -38,6 +38,7 @@ const Account = (props) => {
     }
     
     useEffect(()=>{
+        props.setPreviousSectionURL('/account');
 		props.setSectionName('Account');
 	}, [props]);
 

@@ -1,6 +1,7 @@
 import { AUTH_LINK } from '../constants';
 
-export const loginUser = async (username, password, setCookie, navigate, handleMessage) => {
+export const loginUser = async (username, password, 
+  setCookie, setIsLoggedIn, previousSectionURL, navigate, handleMessage) => {
   try {
     const response = await fetch(AUTH_LINK, {
       method: 'POST',
@@ -12,7 +13,8 @@ export const loginUser = async (username, password, setCookie, navigate, handleM
     if (response.ok) {
       const userToken = await response.json();
       setCookie('token', userToken.token);
-      navigate('/');
+      setIsLoggedIn(true);
+      navigate(previousSectionURL);
       handleMessage('Successfully logged in(CODE 200)')
     } else {
       const error = await response.text();
@@ -20,6 +22,5 @@ export const loginUser = async (username, password, setCookie, navigate, handleM
     }
   } catch (error) {
     handleMessage(error.message, 'error');
-    console.error(error.message);
   }  
 };

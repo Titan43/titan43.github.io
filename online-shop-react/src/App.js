@@ -21,6 +21,7 @@ const App = () => {
   const [userId, setUserId] = useState('');
   const [role, setRole] = useState('');
   const [userData, setUserData] = useState(null);
+  const [previousSectionURL, setPreviousSectionURL] = useState('/');
 
   const isTokenValid = (token) => {
     if(!token) return false;
@@ -69,22 +70,29 @@ const App = () => {
       <BrowserRouter >
         <Routes>
           <Route path="/" element={<Navbar sectionName={sectionName} isLoggedIn={isLoggedIn}/>}>
-            <Route index element={<Home setSectionName={setSectionName}/>}/>
+            <Route index element={
+              <Home setSectionName={setSectionName}
+              setPreviousSectionURL={setPreviousSectionURL}
+              />}/>
             <Route path='/login' 
               element={
                 <Login
                   setSectionName={setSectionName} 
                   setCookie={setCookie}
                   removeCookie={removeCookie}
+                  setIsLoggedIn={setIsLoggedIn}
                   handleMessage={handleMessage}
                   setUserId={setUserId}
+                  previousSectionURL={previousSectionURL}
                 />}
             />
             <Route path='/register' element={<Register setCookie={setCookie}
               setSectionName={setSectionName}
               removeCookie={removeCookie}
+              setIsLoggedIn={setIsLoggedIn}
               handleMessage={handleMessage}
               setUserId={setUserId}
+              previousSectionURL={previousSectionURL}
               />}
             />
             <Route path='/account' element={<Account
@@ -94,6 +102,7 @@ const App = () => {
               handleMessage={handleMessage}
               isLoggedIn={isLoggedIn}
               validateToken={validateToken}
+              setPreviousSectionURL={setPreviousSectionURL}
               />}
             />
             <Route path='/shop' element={<ShopNow 
@@ -103,6 +112,7 @@ const App = () => {
               userId={userId}
               cookies={cookies}
               validateToken={validateToken}
+              setPreviousSectionURL={setPreviousSectionURL}
               />}/>
             <Route path='/shopping_cart' element={<ShoppingCart setSectionName={setSectionName}
               sectionName={sectionName}
@@ -110,6 +120,7 @@ const App = () => {
               cookies={cookies}
               isLoggedIn={isLoggedIn}
               validateToken={validateToken}
+              setPreviousSectionURL={setPreviousSectionURL}
               />}/>
             <Route path="*" element={<NotFound setSectionName={setSectionName}/>}/>
           </Route>

@@ -20,10 +20,9 @@ const ShoppingCart = (props) => {
   const isLoggedInRef = useRef(props.isLoggedIn);
 
   useEffect(() => {
+    props.validateToken(navigate, '/login');
+    props.setPreviousSectionURL('/shopping_cart');
     props.setSectionName("Shopping cart");
-    if (!isLoggedInRef.current) {
-      if (props.sectionName !== "Login") navigate("/login");
-    }
   }, [props, navigate]);
 
   useEffect(() => {

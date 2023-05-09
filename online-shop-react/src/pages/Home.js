@@ -5,6 +5,7 @@ import '../stylesheets/item.css';
 function Home(props) {
 
 	useEffect(()=>{
+		props.setPreviousSectionURL('/');
 		props.setSectionName('Home');
 	}, [props]);
 

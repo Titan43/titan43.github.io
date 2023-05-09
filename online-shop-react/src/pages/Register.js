@@ -37,8 +37,8 @@ const Register = (props) => {
   }
   const onRegister = (event) => {
 	event.preventDefault();
-  UserCreate(formData, loginUser, props.setCookie, 
-    navigate, props.handleMessage);
+  UserCreate(formData, loginUser, props.setCookie,
+    props.setIsLoggedIn, props.previousSectionURL, navigate, props.handleMessage);
   };
   return (
     <div className='Register'>

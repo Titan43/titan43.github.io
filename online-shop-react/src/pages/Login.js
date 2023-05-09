@@ -13,7 +13,10 @@ const Login = (props) => {
 
   const onSubmit = (event) => {
     event.preventDefault();
-    loginUser(username, password, props.setCookie, navigate, 
+    loginUser(username, password, props.setCookie,
+      props.setIsLoggedIn,
+      props.previousSectionURL,
+      navigate, 
       props.handleMessage);
   };
   const onRegister = () => {
