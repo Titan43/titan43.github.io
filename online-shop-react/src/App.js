@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, {useCallback, useEffect, useState } from 'react';
 import { useCookies } from 'react-cookie';
 import { Route, BrowserRouter, Routes} from 'react-router-dom';
 import Home from "./pages/Home";
@@ -12,7 +12,7 @@ import ShopNow from './pages/ShopNow';
 import { UserData } from './components/User/UserData';
 import ShoppingCart from './pages/ShoppingCart';
 
-function App() {
+const App = () => {
   const [cookies, setCookie, removeCookie] = useCookies(['token']);
   const [sectionName, setSectionName] = useState("Home");
   const [message, setMessage] = useState('');
@@ -22,7 +22,7 @@ function App() {
   const [role, setRole] = useState('');
   const [userData, setUserData] = useState(null);
 
-  function isTokenValid(token){
+  const isTokenValid = (token) => {
     if(!token) return false;
     const payload = JSON.parse(atob(token.split('.')[1]));
     const expirationTime = new Date(payload.exp * 1000);
@@ -33,9 +33,17 @@ function App() {
     isTokenValid(cookies.token)
   );
 
+  const validateToken = useCallback((action, args) => {
+    setIsLoggedIn(isTokenValid(cookies.token));
+    if(!isLoggedIn){
+      if(action && args)
+        action(args);
+    }
+  }, [cookies.token, isLoggedIn]);
+
   useEffect(()=>{
-    setIsLoggedIn(isTokenValid(cookies.token))
-  }, [cookies.token]);
+    validateToken();
+  }, [cookies.token, validateToken]);
 
   useEffect(()=>{
     if(isLoggedIn && cookies.token){
@@ -80,11 +88,12 @@ function App() {
               />}
             />
             <Route path='/account' element={<Account
-            sectionName={sectionName}
+              sectionName={sectionName}
               cookies={cookies} 
               setSectionName={setSectionName}
               handleMessage={handleMessage}
-              isTokenValid={isTokenValid}
+              isLoggedIn={isLoggedIn}
+              validateToken={validateToken}
               />}
             />
             <Route path='/shop' element={<ShopNow 
@@ -93,13 +102,14 @@ function App() {
               role={role}
               userId={userId}
               cookies={cookies}
-              isTokenValid={isTokenValid}
+              validateToken={validateToken}
               />}/>
             <Route path='/shopping_cart' element={<ShoppingCart setSectionName={setSectionName}
               sectionName={sectionName}
               handleMessage={handleMessage}
               cookies={cookies}
-              isTokenValid={isTokenValid}
+              isLoggedIn={isLoggedIn}
+              validateToken={validateToken}
               />}/>
             <Route path="*" element={<NotFound setSectionName={setSectionName}/>}/>
           </Route>

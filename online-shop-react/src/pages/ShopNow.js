@@ -25,16 +25,12 @@ const ShopNow = (props) => {
   const navigate = useNavigate();
 
   const handleAddProductForm = () => {
-    if(!props.isTokenValid(props.cookies.token)){
-      navigate('/login');
-    }
+    props.validateToken(navigate, '/login');
     setShowAddProduct(!showAddProduct);
   }
 
   const handleShowOrderProduct = (prod_id, quantity, prodName) => {
-    if(!props.isTokenValid(props.cookies.token)){
-      navigate('/login');
-    }
+    props.validateToken(navigate, '/login');
     setProdId(prod_id);
     setCurrentQuantity(quantity);
     setProdName(prodName);
@@ -42,9 +38,7 @@ const ShopNow = (props) => {
   }
 
   const handleChangeQuantityForm = (prod_id, quantity) => {
-    if(!props.isTokenValid(props.cookies.token)){
-      navigate('/login');
-    }
+    props.validateToken(navigate, '/login');
     setCurrentQuantity(quantity)
     setProdId(prod_id);
     setShowChangeQuantity(!showChangeQuantity);

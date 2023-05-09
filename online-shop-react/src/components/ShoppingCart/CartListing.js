@@ -6,27 +6,21 @@ import CartTotal from "./CartTotal";
 
 const CartListing = (props) => {
   const handleRemoveItem = (product_id) => {
-    if(!props.isTokenValid(props.cookies.token)){
-      props.navigate('/login');
-    }
+    props.validateToken(props.navigate, '/login');
     RemoveCartItem(props.cookies, product_id, props.handleMessage)
       .then(()=>{props.setCartUpdateTime(Date.now())}
     );
   };
 
   const handleCancel = () => {
-    if(!props.isTokenValid(props.cookies.token)){
-      props.navigate('/login');
-    }
+    props.validateToken(props.navigate, '/login');
     CancelOrder(props.cookies, props.handleMessage).then(() => {
       props.setCartData(null);
     });
   };
 
   const handleConfirm = () => {
-    if(!props.isTokenValid(props.cookies.token)){
-      props.navigate('/login');
-    }
+    props.validateToken(props.navigate, '/login');
     ConfirmOrder(props.cookies, props.setCartData, props.handleMessage);
   };
 

@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import {useEffect, useState} from 'react';
 import '../stylesheets/headers.css';
 import '../stylesheets/item.css';
 import '../stylesheets/popup.css';
@@ -8,6 +8,7 @@ import UpdateUserForm from '../components/User/UserUpdateForm';
 import UserBlock from '../components/User/UserView';
 import { UserData } from '../components/User/UserData';
 import { UserDelete } from '../components/User/UserDelete';
+import LoadingSpinner from '../components/Loading';
 
 const Account = (props) => {
 
@@ -17,30 +18,22 @@ const Account = (props) => {
     const [dataLoaded, setDataLoaded] = useState(false);
 
     useEffect(() => {
-        if (!props.isTokenValid(props.cookies.token)) {
-            if(props.sectionName!=='Login')
-                navigate('/login');
-        }
-        else{
+        props.validateToken(navigate, '/login');
+        if(props.isLoggedIn)
             UserData(props.cookies, setUser, props.handleMessage).then(() => {
                 setDataLoaded(true);
         });
-    }
     }, [props, navigate]);
 
     const [showUserUpdate, setShowUserUpdate] = useState(false);
 
     const handleUserUpdateForm = () => {
-        if (!props.isTokenValid(props.cookies.token)){
-            navigate('/login');
-        }
+        props.validateToken(navigate, '/login');
         setShowUserUpdate(!showUserUpdate);
     }
 
     const handleUserDelete = () => {
-        if (!props.isTokenValid(props.cookies.token)){
-            navigate('/login');
-        }
+        props.validateToken(navigate, '/login');
         UserDelete(user.username, props.cookies, navigate, props.handleMessage);
     }
     
@@ -68,7 +61,7 @@ const Account = (props) => {
                     handleUserDelete={handleUserDelete} />}
             </>
             ) : (
-            <div>Loading...</div>
+            <LoadingSpinner/>
             )}
           </div>
         </div>

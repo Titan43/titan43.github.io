@@ -17,7 +17,7 @@ const ShoppingCart = (props) => {
 
   const handleMessageRef = useRef(handleMessage);
   const isLoadingRef = useRef(isLoading);
-  const isLoggedInRef = useRef(props.isTokenValid(cookies.token));
+  const isLoggedInRef = useRef(props.isLoggedIn);
 
   useEffect(() => {
     props.setSectionName("Shopping cart");
@@ -83,8 +83,8 @@ const ShoppingCart = (props) => {
           handleMessage={handleMessage}
           cartData={cartData}
           setCartData={setCartData}
-          isTokenValid={props.isTokenValid}
           navigate={navigate}
+          validateToken={props.validateToken}
         />
       ) : (
         <h2>You haven't ordered anything</h2>
