@@ -4,7 +4,7 @@ import '../stylesheets/form.css';
 import { useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { UserCreate } from '../components/User/UserCreate';
-import { loginUser } from '../components/Auth';
+import { loginUser } from '../components/User/Auth';
 
 const Register = (props) => {
   const navigate = useNavigate();
