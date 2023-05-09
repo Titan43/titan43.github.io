@@ -1,4 +1,4 @@
-import { AUTH_LINK } from './constants';
+import { AUTH_LINK } from '../constants';
 
 export const loginUser = async (username, password, setCookie, navigate, handleMessage) => {
   try {
