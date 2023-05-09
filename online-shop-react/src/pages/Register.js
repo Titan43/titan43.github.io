@@ -19,7 +19,9 @@ const Register = (props) => {
   });
 
   useEffect(()=>{
+    props.removeCookie('token');
 		props.setSectionName('Register');
+    props.setUserId(null);
 	}, [props]);
 
   const handleInputChange = (event) => {

@@ -12,19 +12,19 @@ const ShoppingCart = (props) => {
   const [isLoading, setIsLoading] = useState(false);
   const [cartUpdateTime, setCartUpdateTime] = useState(Date.now());
 
-  useEffect(() => {
-    props.setSectionName("Shopping cart");
-    if (!props.isLoggedIn) {
-      if (props.sectionName !== "Login") navigate("/login");
-    }
-  }, [props, navigate]);
-
   const cookies = props.cookies;
   const handleMessage = props.handleMessage;
 
   const handleMessageRef = useRef(handleMessage);
   const isLoadingRef = useRef(isLoading);
-  const isLoggedInRef = useRef(props.isLoggedIn);
+  const isLoggedInRef = useRef(props.isTokenValid(cookies.token));
+
+  useEffect(() => {
+    props.setSectionName("Shopping cart");
+    if (!isLoggedInRef.current) {
+      if (props.sectionName !== "Login") navigate("/login");
+    }
+  }, [props, navigate]);
 
   useEffect(() => {
     setIsLoading(true);
@@ -70,7 +70,7 @@ const ShoppingCart = (props) => {
       obtainCartData();
     }, 150);
     
-  }, [cookies, cartUpdateTime, isLoadingRef, isLoggedInRef]);
+  }, [cookies, cartUpdateTime, isLoadingRef, isLoggedInRef, navigate]);
 
   return (
     <div className="item">
@@ -83,6 +83,8 @@ const ShoppingCart = (props) => {
           handleMessage={handleMessage}
           cartData={cartData}
           setCartData={setCartData}
+          isTokenValid={props.isTokenValid}
+          navigate={navigate}
         />
       ) : (
         <h2>You haven't ordered anything</h2>

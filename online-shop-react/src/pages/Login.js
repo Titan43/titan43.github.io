@@ -22,6 +22,7 @@ const Login = (props) => {
 
   useEffect(()=>{
     props.removeCookie('token');
+    props.setUserId(null);
 		props.setSectionName('Login');
 	}, [props]);
 

@@ -69,34 +69,37 @@ function App() {
                   setCookie={setCookie}
                   removeCookie={removeCookie}
                   handleMessage={handleMessage}
+                  setUserId={setUserId}
                 />}
             />
             <Route path='/register' element={<Register setCookie={setCookie}
               setSectionName={setSectionName}
+              removeCookie={removeCookie}
               handleMessage={handleMessage}
+              setUserId={setUserId}
               />}
             />
             <Route path='/account' element={<Account
             sectionName={sectionName}
               cookies={cookies} 
               setSectionName={setSectionName}
-              isLoggedIn={isLoggedIn}
               handleMessage={handleMessage}
+              isTokenValid={isTokenValid}
               />}
             />
             <Route path='/shop' element={<ShopNow 
-              isLoggedIn={isLoggedIn}
               handleMessage={handleMessage}
               setSectionName={setSectionName}
               role={role}
               userId={userId}
               cookies={cookies}
+              isTokenValid={isTokenValid}
               />}/>
             <Route path='/shopping_cart' element={<ShoppingCart setSectionName={setSectionName}
               sectionName={sectionName}
-              isLoggedIn={isLoggedIn}
               handleMessage={handleMessage}
               cookies={cookies}
+              isTokenValid={isTokenValid}
               />}/>
             <Route path="*" element={<NotFound setSectionName={setSectionName}/>}/>
           </Route>

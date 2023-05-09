@@ -17,7 +17,7 @@ const Account = (props) => {
     const [dataLoaded, setDataLoaded] = useState(false);
 
     useEffect(() => {
-        if (!props.isLoggedIn) {
+        if (!props.isTokenValid(props.cookies.token)) {
             if(props.sectionName!=='Login')
                 navigate('/login');
         }
@@ -31,11 +31,16 @@ const Account = (props) => {
     const [showUserUpdate, setShowUserUpdate] = useState(false);
 
     const handleUserUpdateForm = () => {
-        showUserUpdate? setShowUserUpdate(false)
-            : setShowUserUpdate(true);
+        if (!props.isTokenValid(props.cookies.token)){
+            navigate('/login');
+        }
+        setShowUserUpdate(!showUserUpdate);
     }
 
     const handleUserDelete = () => {
+        if (!props.isTokenValid(props.cookies.token)){
+            navigate('/login');
+        }
         UserDelete(user.username, props.cookies, navigate, props.handleMessage);
     }
     

@@ -25,11 +25,14 @@ const ShopNow = (props) => {
   const navigate = useNavigate();
 
   const handleAddProductForm = () => {
+    if(!props.isTokenValid(props.cookies.token)){
+      navigate('/login');
+    }
     setShowAddProduct(!showAddProduct);
   }
 
   const handleShowOrderProduct = (prod_id, quantity, prodName) => {
-    if(!props.isLoggedIn){
+    if(!props.isTokenValid(props.cookies.token)){
       navigate('/login');
     }
     setProdId(prod_id);
@@ -39,6 +42,9 @@ const ShopNow = (props) => {
   }
 
   const handleChangeQuantityForm = (prod_id, quantity) => {
+    if(!props.isTokenValid(props.cookies.token)){
+      navigate('/login');
+    }
     setCurrentQuantity(quantity)
     setProdId(prod_id);
     setShowChangeQuantity(!showChangeQuantity);
