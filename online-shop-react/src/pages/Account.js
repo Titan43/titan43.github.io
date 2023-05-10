@@ -3,12 +3,13 @@ import '../stylesheets/headers.css';
 import '../stylesheets/item.css';
 import '../stylesheets/popup.css';
 import { useNavigate } from 'react-router-dom';
-import Dashboard from '../components/Dashboard';
+import Dashboard from '../components/User/Dashboard';
 import UpdateUserForm from '../components/User/UserUpdateForm';
 import UserBlock from '../components/User/UserView';
 import { UserData } from '../components/User/UserData';
 import { UserDelete } from '../components/User/UserDelete';
 import LoadingSpinner from '../components/Loading';
+import UserGetForm from '../components/User/UserGetForm';
 
 const Account = (props) => {
 
@@ -26,10 +27,16 @@ const Account = (props) => {
     }, [props, navigate]);
 
     const [showUserUpdate, setShowUserUpdate] = useState(false);
+    const [showUserGet, setShowUserGet] = useState(false);
 
     const handleUserUpdateForm = () => {
         props.validateToken(navigate, '/login');
         setShowUserUpdate(!showUserUpdate);
+    }
+
+    const handleUserGetForm = () => {
+        props.validateToken(navigate, '/login');
+        setShowUserGet(!showUserGet);
     }
 
     const handleUserDelete = () => {
@@ -49,17 +56,25 @@ const Account = (props) => {
                     username={user.username}
                     cookies={props.cookies}
                     handleMessage={props.handleMessage}/>
-                ) : (
-                <></>
-                )}
-        <div className={`item ${showUserUpdate ? 'blur' : ''}`}>
+                ) : (<></>)
+        }
+        {
+            showUserGet ? (
+                <UserGetForm
+                    handleUserGetForm={handleUserGetForm}/>)
+            :
+            (<></>)
+        }
+        <div className={`item ${showUserUpdate || showUserGet
+             ? 'blur' : ''}`}>
           <div className="cart-items">
           {dataLoaded ? (
              <>
                 <UserBlock user={user} />
                 {user && <Dashboard userRole={user.role} 
                     handleUserUpdateForm={handleUserUpdateForm}
-                    handleUserDelete={handleUserDelete} />}
+                    handleUserDelete={handleUserDelete}
+                    handleUserGetForm={handleUserGetForm}/>}
             </>
             ) : (
             <LoadingSpinner/>

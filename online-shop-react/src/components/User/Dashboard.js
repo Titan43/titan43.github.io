@@ -13,7 +13,7 @@ const Dashboard = (props) => {
             <button
               className="btn load-items"
               id="viewUser"
-              onClick={() => (window.location.href = 'userView.html')}
+              onClick={props.handleUserGetForm}
             >
               View user data
             </button>
