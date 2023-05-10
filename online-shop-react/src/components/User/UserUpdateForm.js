@@ -16,8 +16,9 @@ function UpdateUserForm(props) {
   function handleSubmit(event) {
     event.preventDefault();
     UserUpdate(props.username, formData, 
-      props.cookies, props.handleMessage);
-    props.handleUserUpdateForm();
+      props.cookies, props.handleMessage).then(()=>{
+      props.handleUserObtain();
+    });
   }
 
   function handleInputChange(event) {

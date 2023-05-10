@@ -30,6 +30,12 @@ const Account = (props) => {
     const [showUserUpdate, setShowUserUpdate] = useState(false);
     const [showUserGet, setShowUserGet] = useState(false);
 
+    const handleUserObtain = () => {
+        UserData(props.cookies, userObtained? setUserObtained:
+             setUser, props.handleMessage, userObtained? 
+             userObtained.username: null);
+    }
+
     const handleUserUpdateForm = () => {
         props.validateToken(navigate, '/login');
         setShowUserUpdate(!showUserUpdate);
@@ -44,7 +50,7 @@ const Account = (props) => {
         props.validateToken(navigate, '/login');
         UserDelete(user.username, props.cookies, navigate, props.handleMessage);
     }
-    
+
     useEffect(()=>{
         props.setPreviousSectionURL('/account');
 		props.setSectionName('Account');
@@ -57,11 +63,13 @@ const Account = (props) => {
                     username={userObtained? userObtained.username
                         : user.username}
                     cookies={props.cookies}
-                    handleMessage={props.handleMessage}/>
+                    handleMessage={props.handleMessage}
+                    handleUserObtain={handleUserObtain}/>
                 ) : (<></>)
         }
         {showUserGet ? (
                 <UserGetForm
+                    username={user.username}
                     handleUserGetForm={handleUserGetForm}
                     cookies={props.cookies}
                     handleMessage={props.handleMessage}

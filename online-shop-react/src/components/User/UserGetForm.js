@@ -10,8 +10,13 @@ const UserGetForm = (props) => {
   
     const onSubmit = (event) => {
       event.preventDefault();
-      UserData(props.cookies, props.setUser, 
-       props.handleMessage, username);
+      if(props.username===username){
+        props.setUser(null);
+      }
+      else{
+        UserData(props.cookies, props.setUser, 
+          props.handleMessage, username);
+      }
       props.handleUserGetForm();
     }
   
