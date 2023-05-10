@@ -1,6 +1,6 @@
 import { USER_LINK } from '../constants';
 
-export const UserUpdate = async (username, newwData, cookies, handleMessage) => {
+export const UserUpdate = async (username, newData, cookies, handleMessage) => {
   try {
     const response = await fetch(USER_LINK+`?username=${username}`, {
       method: 'PUT',
@@ -8,7 +8,7 @@ export const UserUpdate = async (username, newwData, cookies, handleMessage) => 
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${cookies.token}`,
       },
-      body: JSON.stringify(newwData),
+      body: JSON.stringify(newData),
     });
     if (!response.ok) {
       const error = await response.text();

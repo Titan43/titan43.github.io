@@ -16,6 +16,7 @@ const Account = (props) => {
     const navigate = useNavigate();
 
     const [user, setUser] = useState(null);
+    const [userObtained, setUserObtained] = useState(null);
     const [dataLoaded, setDataLoaded] = useState(false);
 
     useEffect(() => {
@@ -53,15 +54,18 @@ const Account = (props) => {
         <>
         {showUserUpdate ? (
                 <UpdateUserForm handleUserUpdateForm={handleUserUpdateForm} 
-                    username={user.username}
+                    username={userObtained? userObtained.username
+                        : user.username}
                     cookies={props.cookies}
                     handleMessage={props.handleMessage}/>
                 ) : (<></>)
         }
-        {
-            showUserGet ? (
+        {showUserGet ? (
                 <UserGetForm
-                    handleUserGetForm={handleUserGetForm}/>)
+                    handleUserGetForm={handleUserGetForm}
+                    cookies={props.cookies}
+                    handleMessage={props.handleMessage}
+                    setUser={setUserObtained}/>)
             :
             (<></>)
         }
@@ -70,7 +74,7 @@ const Account = (props) => {
           <div className="cart-items">
           {dataLoaded ? (
              <>
-                <UserBlock user={user} />
+                <UserBlock user={userObtained? userObtained : user} />
                 {user && <Dashboard userRole={user.role} 
                     handleUserUpdateForm={handleUserUpdateForm}
                     handleUserDelete={handleUserDelete}

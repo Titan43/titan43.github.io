@@ -1,8 +1,9 @@
 import { USER_LINK } from '../constants';
 
-export const UserData = async (cookies, setUser, handleMessage) => {
+export const UserData = async (cookies, setUser, handleMessage, username) => {
   try {
-    const response = await fetch(USER_LINK, {
+    const response = await fetch(
+      `${USER_LINK}${username? '?username='+username : ''}` , {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',

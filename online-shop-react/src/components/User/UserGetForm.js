@@ -2,6 +2,7 @@ import '../../stylesheets/headers.css';
 import '../../stylesheets/button.css';
 import '../../stylesheets/form.css';
 import { useState } from 'react';
+import { UserData } from './UserData';
 
 const UserGetForm = (props) => {
 
@@ -9,6 +10,8 @@ const UserGetForm = (props) => {
   
     const onSubmit = (event) => {
       event.preventDefault();
+      UserData(props.cookies, props.setUser, 
+       props.handleMessage, username);
       props.handleUserGetForm();
     }
   

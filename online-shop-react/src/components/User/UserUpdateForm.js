@@ -17,6 +17,7 @@ function UpdateUserForm(props) {
     event.preventDefault();
     UserUpdate(props.username, formData, 
       props.cookies, props.handleMessage);
+    props.handleUserUpdateForm();
   }
 
   function handleInputChange(event) {
@@ -70,7 +71,6 @@ function UpdateUserForm(props) {
         type="password"
         id="password"
         name="password"
-        required
         value={formData.password}
         onChange={handleInputChange}
       />
