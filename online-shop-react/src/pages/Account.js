@@ -20,8 +20,7 @@ const Account = (props) => {
     const [dataLoaded, setDataLoaded] = useState(false);
 
     useEffect(() => {
-        props.validateToken(navigate, '/login');
-        if(props.isLoggedIn)
+        if(props.validateToken(navigate, '/login'))
             UserData(props.cookies, setUser, props.handleMessage).then(() => {
                 setDataLoaded(true);
         });
@@ -47,8 +46,8 @@ const Account = (props) => {
     }
 
     const handleUserDelete = () => {
-        props.validateToken(navigate, '/login');
-        UserDelete(user.username, props.cookies, navigate, props.handleMessage);
+        if(props.validateToken(navigate, '/login'))
+            UserDelete(user.username, props.cookies, navigate, props.handleMessage);
     }
 
     useEffect(()=>{

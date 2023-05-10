@@ -40,6 +40,7 @@ const App = () => {
       if(action && args)
         action(args);
     }
+    return isLoggedIn;
   }, [cookies.token, isLoggedIn]);
 
   useEffect(()=>{
