@@ -2,6 +2,11 @@
     text-align: center; 
     padding: 20px;
 }
+
+.cart-items img{
+	width: 20%;
+}
+
 .items {
 	display: flex;
 	flex-wrap: wrap;
@@ -22,13 +27,24 @@
 	font-size: 20px;
 }
 
+.items img{
+	width: 60%;
+}
+
 @media (max-width: 768px) {
 	.items {
-	flex-direction: column;
-	}
-	.item {
-		flex-basis: 100%;
-		margin-right: 0;
+		width: 100%;
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: space-between;
+	  }
+	  .item {
+		  flex-basis: calc(100%);
+		  margin-bottom: 20px;
+		  padding: 20px;
+	  }
+	.item img{
+		width: 40%;
 	}
 }
 

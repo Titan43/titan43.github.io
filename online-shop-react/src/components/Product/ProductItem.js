@@ -2,11 +2,12 @@ import '../../stylesheets/headers.css';
 import '../../stylesheets/button.css';
 
 function ProductItem(props) {
-    const { id, name, description, price, quantity} = props.item;
+    const { id, name, description, price, quantity, image} = props.item;
     const isOutOfStock = quantity===0;
     return (
         <div className="item">
             <h2>{name}</h2>
+            <img src={`data:image/png;base64,${image}`} alt="Something went wrong"/>
             <p>Product Id: {id}</p>
             <p>Description: {description}</p>
             <p>Price: {price}</p>

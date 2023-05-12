@@ -149,7 +149,8 @@ const ShopNow = (props) => {
         <LoadingSpinner/>
       ) : items.length > 0 ? (
         <div className="items">
-          {items.map((item) => (
+          {
+          items.map((item) => (
             <ProductItem 
               userId={props.userId} role={props.role} item={item} key={item.id} 
               handleChangeQuantityForm={handleChangeQuantityForm}
