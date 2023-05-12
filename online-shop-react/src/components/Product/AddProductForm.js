@@ -6,30 +6,48 @@ import { CreateProduct } from './CreateProduct';
 
 function AddProductForm(props) {
   const [formData, setFormData] = useState({
-    description: '',
-    quantity: '',
-    price: '',
     name: '',
+    price: '',
+    quantity: '',
+    description: '',
+    image: '',
   });
 
   function handleSubmit(event) {
     event.preventDefault();
     const roundedPrice = parseFloat(formData.price).toFixed(2);
   
-    const updatedFormData = {
+    let updatedFormData = {
       ...formData,
       price: roundedPrice,
     };
-  
-    CreateProduct(updatedFormData, props.cookies, props.handleMessage, props.toggleEmpty);
+    if (formData.image) {
+      const reader = new FileReader();
+      reader.onload = () => {
+        const base64Image = reader.result.split(",")[1];
+        updatedFormData = {
+          ...updatedFormData,
+          image: base64Image,
+        };
+        CreateProduct(updatedFormData, props.cookies, props.handleMessage, props.toggleEmpty);
+      };
+      reader.readAsDataURL(formData.image);
+    } else {
+      updatedFormData = {
+        ...updatedFormData,
+        image: null,
+      };
+      CreateProduct(updatedFormData, props.cookies, props.handleMessage, props.toggleEmpty);
+    }
   }
+  
 
   function handleInputChange(event) {
-    const { name, value } = event.target;
+    const { name, value, type, files } = event.target;
 
     setFormData((prevFormData) => ({
       ...prevFormData,
-      [name]: value,
+      [name]: type === 'file' ? files[0] : value,
     }));
   }
 
@@ -72,6 +90,15 @@ function AddProductForm(props) {
         name="description"
         required
         value={formData.description}
+        onChange={handleInputChange}
+      />
+
+      <label htmlFor="product-image">Product Image:</label>
+      <input
+        type="file"
+        id="product-image"
+        name="image"
+        accept="image/*"
         onChange={handleInputChange}
       />
 

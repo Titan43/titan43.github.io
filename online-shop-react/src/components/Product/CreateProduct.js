@@ -2,6 +2,7 @@ import { PRODUCT_LINK } from "../constants";
 
 export const CreateProduct = (formData, cookies,
      handleMessage, toggleEmpty) =>{
+    console.log(formData.image);
     fetch(PRODUCT_LINK, {
     method: 'POST',
     headers: {
