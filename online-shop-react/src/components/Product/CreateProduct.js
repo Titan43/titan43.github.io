@@ -1,7 +1,7 @@
 import { PRODUCT_LINK } from "../constants";
 
 export const CreateProduct = (formData, cookies,
-     handleMessage) =>{
+     handleMessage, toggleEmpty) =>{
     fetch(PRODUCT_LINK, {
     method: 'POST',
     headers: {
@@ -12,6 +12,7 @@ export const CreateProduct = (formData, cookies,
   })
       .then((response) => {
         if (response.ok) {
+          toggleEmpty();
           return response.text();
         } else {
           return response.text().then((error) => {

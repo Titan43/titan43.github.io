@@ -21,7 +21,7 @@ function AddProductForm(props) {
       price: roundedPrice,
     };
   
-    CreateProduct(updatedFormData, props.cookies, props.handleMessage);
+    CreateProduct(updatedFormData, props.cookies, props.handleMessage, props.toggleEmpty);
   }
 
   function handleInputChange(event) {

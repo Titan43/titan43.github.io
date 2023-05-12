@@ -1,4 +1,4 @@
-import { useEffect, useState, useCallback} from "react";
+import { useEffect, useState, useCallback, useRef} from "react";
 import { useNavigate } from "react-router-dom";
 import ProductItem from "../components/Product/ProductItem";
 import ProductLoadButtons from "../components/Product/ProductLoadButtons";
@@ -22,6 +22,8 @@ const ShopNow = (props) => {
   const[prodId, setProdId] = useState(0);
   const[prodName, setProdName] = useState('');
 
+  const isEmptyRef = useRef(false);
+
   const navigate = useNavigate();
 
   const handleAddProductForm = () => {
@@ -35,6 +37,12 @@ const ShopNow = (props) => {
     setCurrentQuantity(quantity);
     setProdName(prodName);
     setShowOrderProduct(!showOrderProduct);
+  }
+
+  const toggleEmpty = () => {
+    if(isEmptyRef.current){
+      isEmptyRef.current = false;
+    }
   }
 
   const handleChangeQuantityForm = (prod_id, quantity) => {
@@ -65,6 +73,7 @@ const ShopNow = (props) => {
   useEffect(() => {
     setLoading(true);
     const fetchProducts = async () => {
+      if(!isEmptyRef.current)
       try {
         const response = await fetch(
           `${PRODUCT_LINK}/products?page=${currentPage}&count=9`
@@ -79,7 +88,12 @@ const ShopNow = (props) => {
           setItems(data);
         } else {
           props.handleMessage("Can't load more products(CODE 404)", 'error');
-          loadPrevItems();
+          if(currentPage>0){
+            loadPrevItems();
+          }
+          else{
+            isEmptyRef.current = true;
+          }
         }
       } catch (error) {
         props.handleMessage(error, 'error');
@@ -123,6 +137,7 @@ const ShopNow = (props) => {
           <AddProductForm handleAddProductForm={handleAddProductForm}
             cookies={props.cookies}
             handleMessage={props.handleMessage}
+            toggleEmpty={toggleEmpty}
           />
         : <>
         </>
@@ -143,12 +158,13 @@ const ShopNow = (props) => {
         </div>
       ) : (
         <div>
-          <h3>No products to display</h3>
+          <h2>No products to display</h2>
         </div>
       )}
       <ProductLoadButtons role={props.role} onPrevClick={loadPrevItems} 
         onNextClick={loadNextItems}
-        handleAddProductForm={handleAddProductForm}/>
+        handleAddProductForm={handleAddProductForm}
+        isEmpty={isEmptyRef.current}/>
     </div>
     </>
   );
