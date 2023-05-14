@@ -2,12 +2,12 @@ import { useEffect, useState, useCallback, useRef} from "react";
 import { useNavigate } from "react-router-dom";
 import ProductItem from "../components/Product/ProductItem";
 import ProductLoadButtons from "../components/Product/ProductLoadButtons";
-import { PRODUCT_LINK } from "../components/constants";
 import "../stylesheets/item.css";
 import LoadingSpinner from "../components/Loading";
 import AddProductForm from "../components/Product/AddProductForm"
 import ChangeQuantityForm from "../components/Product/ChangeQuantityForm";
 import OrderProductForm from "../components/Product/OrderProductForm";
+import { fetchProducts } from "../components/Product/LoadProducts";
 
 const ShopNow = (props) => {
   const [items, setItems] = useState([]);
@@ -72,36 +72,8 @@ const ShopNow = (props) => {
 
   useEffect(() => {
     setLoading(true);
-    const fetchProducts = async () => {
-      if(!isEmptyRef.current)
-      try {
-        const response = await fetch(
-          `${PRODUCT_LINK}/products?page=${currentPage}&count=9`
-        );
-        if (!response.ok) {
-          return response.text().then((error) => {
-            throw new Error(error);
-          });
-        }
-        const data = await response.json();
-        if (data && data.length > 0) {
-          setItems(data);
-        } else {
-          props.handleMessage("Can't load more products(CODE 404)", 'error');
-          if(currentPage>0){
-            loadPrevItems();
-          }
-          else{
-            isEmptyRef.current = true;
-          }
-        }
-      } catch (error) {
-        props.handleMessage(error, 'error');
-      }
-      setLoading(false);
-    };
     setTimeout(() => {
-      fetchProducts();
+      fetchProducts(isEmptyRef, currentPage, setItems, loadPrevItems, setLoading, props.handleMessage);
     }, 150);
   }, [currentPage, loadPrevItems, props]);
   
@@ -147,7 +119,7 @@ const ShopNow = (props) => {
       || showOrderProduct ? 'blur' : ''}`}>
       {loading ? (
         <LoadingSpinner/>
-      ) : items.length > 0 ? (
+      ) : items.length>0 ? (
         <div className="items">
           {
           items.map((item) => (
