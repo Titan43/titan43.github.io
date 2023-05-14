@@ -10,6 +10,7 @@ import { UserData } from '../components/User/UserData';
 import { UserDelete } from '../components/User/UserDelete';
 import LoadingSpinner from '../components/Loading';
 import UserGetForm from '../components/User/UserGetForm';
+import ChangeRoleButtons from '../components/User/ChangeRoleButtons';
 
 const Account = (props) => {
 
@@ -82,6 +83,8 @@ const Account = (props) => {
           {dataLoaded ? (
              <>
                 <UserBlock user={userObtained? userObtained : user} />
+                {user && userObtained? <ChangeRoleButtons username={userObtained.username} role={userObtained.role}
+                    cookies={props.cookies} handleMessage={props.handleMessage} handleUserObtain={handleUserObtain}/> : <></>}
                 {user && <Dashboard userRole={user.role} 
                     handleUserUpdateForm={handleUserUpdateForm}
                     handleUserDelete={handleUserDelete}
