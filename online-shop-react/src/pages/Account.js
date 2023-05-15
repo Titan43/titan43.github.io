@@ -36,6 +36,10 @@ const Account = (props) => {
              userObtained.username: null);
     }
 
+    const handleViewOrders = () =>{
+        navigate('/orders');
+    }
+
     const handleUserUpdateForm = () => {
         props.validateToken(navigate, '/login');
         setShowUserUpdate(!showUserUpdate);
@@ -87,6 +91,7 @@ const Account = (props) => {
                     cookies={props.cookies} handleMessage={props.handleMessage} handleUserObtain={handleUserObtain}/> : <></>}
                 {user && <Dashboard userRole={user.role} 
                     handleUserUpdateForm={handleUserUpdateForm}
+                    handleViewOrders={handleViewOrders}
                     handleUserDelete={handleUserDelete}
                     handleUserGetForm={handleUserGetForm}/>}
             </>

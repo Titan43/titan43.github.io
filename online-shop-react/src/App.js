@@ -126,6 +126,10 @@ const App = () => {
               />}/> 
             <Route path="/orders" element={<OrderDetails orderId={1}
               cookies={cookies}
+              role={role}
+              setSectionName={setSectionName}
+              previousSectionURL={previousSectionURL}
+              setPreviousSectionURL={setPreviousSectionURL}
               handleMessage={handleMessage}
               validateToken={validateToken}/>}/>
             <Route path="*" element={<NotFound setSectionName={setSectionName}/>}/>

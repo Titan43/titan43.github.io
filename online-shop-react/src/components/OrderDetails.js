@@ -10,11 +10,15 @@ function OrderDetails(props) {
   const navigate = useNavigate();
 
   useEffect(() => {
+    props.setPreviousSectionURL('/account');
+    props.setSectionName("Order id:"+props.orderId);
+  }, [props]);
+
+  useEffect(() => {
     const orderId = props.orderId;
     const token = props.cookies.token;
 
-    props.validateToken(navigate, "/login");
-    async function fetchOrder() {
+    const fetchOrder = async () => {
       try {
         const response = await fetch(`${ORDER_LINK}/${orderId}`, {
           method: 'GET',
@@ -37,22 +41,28 @@ function OrderDetails(props) {
         setLoading(false);
       }
     }
-
-    fetchOrder();
+    
+    if(props.validateToken(navigate, "/login")){
+      if(props.role==="MANAGER")
+        fetchOrder();
+      else if(props.role!==""){
+        navigate(props.previousSectionURL);
+      }
+    }
   }, [props, navigate]);
 
   return (
     <div className='item'>
       {loading ? (
         <LoadingSpinner />
-      ) : order ? (
+      ) : order && props.role === "MANAGER" ? (
         <div id='item-to-order'>
           <div className='item'>
             <h2>Order</h2>
             <p>Order Date: {order.date}</p>
             <p>Order Owner: {order.order_owner}</p>
             <p>Total Price: {order.total_price}</p>
-            <p>Confirmed: {order.confirmed}</p>
+            <p>Confirmed: {order.confirmed.toString()}</p>
           </div>
           <div className='cart-items item'>
             <h2>Ordered Products:</h2>

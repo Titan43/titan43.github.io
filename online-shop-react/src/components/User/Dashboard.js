@@ -6,7 +6,7 @@ const Dashboard = (props) => {
             <button
               className="btn load-items"
               id="viewOrders"
-              onClick={() => (window.location.href = 'orders.html')}
+              onClick={props.handleViewOrders}
             >
               View Orders
             </button>
