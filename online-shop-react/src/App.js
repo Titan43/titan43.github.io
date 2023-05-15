@@ -11,6 +11,7 @@ import Account from './pages/Account';
 import ShopNow from './pages/ShopNow';
 import { UserData } from './components/User/UserData';
 import ShoppingCart from './pages/ShoppingCart';
+import OrderDetails from './components/OrderDetails';
 
 const App = () => {
   const [cookies, setCookie, removeCookie] = useCookies(['token']);
@@ -122,7 +123,11 @@ const App = () => {
               isLoggedIn={isLoggedIn}
               validateToken={validateToken}
               setPreviousSectionURL={setPreviousSectionURL}
-              />}/>
+              />}/> 
+            <Route path="/orders" element={<OrderDetails orderId={1}
+              cookies={cookies}
+              handleMessage={handleMessage}
+              validateToken={validateToken}/>}/>
             <Route path="*" element={<NotFound setSectionName={setSectionName}/>}/>
           </Route>
         </Routes>
