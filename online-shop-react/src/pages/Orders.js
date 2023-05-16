@@ -35,16 +35,24 @@ const Orders = (props) => {
   }
   
   useEffect(()=>{
-    props.setPreviousSectionURL('/orders');
 		props.setSectionName(orderId? 'Order id: '+orderId : 'Orders');
 	}, [props, orderId]);
 
   useEffect(() => {
     setLoading(true);
-    if(props.validateToken(navigate, '/login'))
-      setTimeout(() => {
-        fetchOrders(isEmptyRef, currentPage, props.cookies, setItems, loadPrevItems, setLoading, props.handleMessage);
-      }, 150);
+    if(props.validateToken(navigate, '/login')){
+      if(props.role==="MANAGER")
+        setTimeout(() => {
+          fetchOrders(isEmptyRef, currentPage, props.cookies, setItems, loadPrevItems, setLoading, props.handleMessage);
+        }, 150);
+      else{
+        navigate('/account');
+        props.handleMessage('You don\'t have enough rights to preview orders(CODE 403)', 'error');
+      }
+    }
+    else{
+      props.setPreviousSectionURL('/orders');
+    }
   }, [currentPage, loadPrevItems, props, navigate]);
   
   return (

@@ -32,6 +32,7 @@ export const fetchOrders = async (isEmptyRef, currentPage, cookies, setItems, lo
         }
       } catch (error) {
         handleMessage(error.message, 'error');
+        isEmptyRef.current=true;
       } finally{
         setLoading(false);
       }
