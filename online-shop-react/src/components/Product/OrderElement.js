@@ -7,7 +7,7 @@ const OrderElement = ({ order, handleViewOrder}) => {
       <p>Username: {order.username}</p>
       <p>Total Cost: {order.totalCost}</p>
       <p>Order Date: {order.date}</p>
-      <p>Confirmed: {order.confirmed}</p>
+      <p>Confirmed: {order.confirmed.toString()}</p>
       <button className="btn" onClick={()=>{handleViewOrder(order.id)}}>
         View order
       </button>

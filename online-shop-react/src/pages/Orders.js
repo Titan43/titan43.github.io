@@ -2,10 +2,10 @@ import { useEffect, useState, useCallback, useRef} from "react";
 import { useNavigate } from "react-router-dom";
 import "../stylesheets/item.css";
 import LoadingSpinner from "../components/Loading";
-import { fetchProducts } from "../components/Product/LoadProducts";
 import LoadButtons from "../components/Product/LoadButtons";
 import OrderElement from "../components/Product/OrderElement";
 import OrderDetails from "../components/Product/OrderDetails";
+import { fetchOrders } from "../components/Product/LoadOrders";
 
 const Orders = (props) => {
   const [items, setItems] = useState([]);
@@ -36,23 +36,31 @@ const Orders = (props) => {
   
   useEffect(()=>{
     props.setPreviousSectionURL('/orders');
-		props.setSectionName('Orders');
-	}, [props]);
+		props.setSectionName(orderId? 'Order id: '+orderId : 'Orders');
+	}, [props, orderId]);
 
   useEffect(() => {
     setLoading(true);
-    setTimeout(() => {
-      fetchProducts(isEmptyRef, currentPage, setItems, loadPrevItems, setLoading, props.handleMessage);
-    }, 150);
-  }, [currentPage, loadPrevItems, props]);
+    if(props.validateToken(navigate, '/login'))
+      setTimeout(() => {
+        fetchOrders(isEmptyRef, currentPage, props.cookies, setItems, loadPrevItems, setLoading, props.handleMessage);
+      }, 150);
+  }, [currentPage, loadPrevItems, props, navigate]);
   
   return (
     <div className='item'>
       {orderId ? (
-        <OrderDetails {...props} orderId={orderId} navigate={navigate} />
+        <OrderDetails orderId={orderId}
+          role={props.role}
+          cookies={props.cookies}
+          navigate={navigate} 
+          handleViewOrder={handleViewOrder}
+          handleMessage={props.handleMessage}
+          validateToken={props.validateToken}/>
       ) : loading ? (
         <LoadingSpinner />
       ) : items.length > 0 ? (
+        <>
         <div className="cart-items">
           {items.map((item) => {
             return (
@@ -60,16 +68,17 @@ const Orders = (props) => {
             );
           })}
         </div>
+        <LoadButtons
+        onPrevClick={loadPrevItems}
+        onNextClick={loadNextItems}
+        isEmpty={isEmptyRef.current}
+      />
+        </>
       ) : (
         <div>
           <h2>No orders to display</h2>
         </div>
       )}
-      <LoadButtons
-        onPrevClick={loadPrevItems}
-        onNextClick={loadNextItems}
-        isEmpty={isEmptyRef.current}
-      />
     </div>
   );
 }
