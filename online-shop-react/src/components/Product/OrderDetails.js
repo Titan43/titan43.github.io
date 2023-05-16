@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'react';
-import LoadingSpinner from './Loading';
-import { ORDER_LINK } from './constants';
+import LoadingSpinner from '../Loading';
 import { useNavigate } from 'react-router-dom';
+import { fetchOrder } from './FetchOrder';
 
 function OrderDetails(props) {
   const [order, setOrder] = useState(null);
-  const [loading, setLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(true);
 
   const navigate = useNavigate();
 
@@ -15,46 +15,21 @@ function OrderDetails(props) {
   }, [props]);
 
   useEffect(() => {
-    const orderId = props.orderId;
-    const token = props.cookies.token;
-
-    const fetchOrder = async () => {
-      try {
-        const response = await fetch(`${ORDER_LINK}/${orderId}`, {
-          method: 'GET',
-          headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${token}`,
-          },
-        });
-
-        if (!response.ok) {
-          const error = await response.text();
-          throw new Error(error);
-        }
-
-        const data = await response.json();
-        setOrder(data);
-      } catch (error) {
-        props.handleMessage(error.message, 'error');
-      } finally {
-        setLoading(false);
-      }
-    }
-    
     if(props.validateToken(navigate, "/login")){
-      if(props.role==="MANAGER")
-        fetchOrder();
+      if(props.role==="MANAGER" && isLoading)
+        fetchOrder(props.orderId, props.cookies, setOrder, props.handleMessage).then(()=>{
+          setIsLoading(false);
+        });
       else if(props.role!==""){
         navigate(props.previousSectionURL);
       }
     }
-  }, [props, navigate]);
+  }, [props, navigate, isLoading]);
 
   return (
     <div className='item'>
-      {loading ? (
-        <LoadingSpinner />
+      {isLoading ? (
+        <LoadingSpinner/>
       ) : order && props.role === "MANAGER" ? (
         <div id='item-to-order'>
           <div className='item'>

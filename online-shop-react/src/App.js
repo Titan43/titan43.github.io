@@ -11,7 +11,7 @@ import Account from './pages/Account';
 import ShopNow from './pages/ShopNow';
 import { UserData } from './components/User/UserData';
 import ShoppingCart from './pages/ShoppingCart';
-import OrderDetails from './components/OrderDetails';
+import OrderDetails from './components/Product/OrderDetails';
 
 const App = () => {
   const [cookies, setCookie, removeCookie] = useCookies(['token']);
