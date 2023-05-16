@@ -1,7 +1,7 @@
 import '../../stylesheets/headers.css';
 import '../../stylesheets/button.css';
 
-function ProductLoadButtons({role, onPrevClick, onNextClick, handleAddProductForm, isEmpty}) {
+function LoadButtons({role, onPrevClick, onNextClick, handleAddProductForm, isEmpty}) {
     return (
       <div className="button-container">
         {!isEmpty?
@@ -22,4 +22,4 @@ function ProductLoadButtons({role, onPrevClick, onNextClick, handleAddProductFor
     );
   }
   
-export default ProductLoadButtons;
+export default LoadButtons;

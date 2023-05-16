@@ -1,13 +1,13 @@
 import { useEffect, useState, useCallback, useRef} from "react";
 import { useNavigate } from "react-router-dom";
 import ProductItem from "../components/Product/ProductItem";
-import ProductLoadButtons from "../components/Product/ProductLoadButtons";
 import "../stylesheets/item.css";
 import LoadingSpinner from "../components/Loading";
 import AddProductForm from "../components/Product/AddProductForm"
 import ChangeQuantityForm from "../components/Product/ChangeQuantityForm";
 import OrderProductForm from "../components/Product/OrderProductForm";
 import { fetchProducts } from "../components/Product/LoadProducts";
+import LoadButtons from "../components/Product/LoadButtons";
 
 const ShopNow = (props) => {
   const [items, setItems] = useState([]);
@@ -61,7 +61,7 @@ const ShopNow = (props) => {
     }
   }, [currentPage, props]);
 
-  function loadNextItems() {
+  const loadNextItems = () => {
     setCurrentPage(currentPage + 1);
   }
   
@@ -134,7 +134,7 @@ const ShopNow = (props) => {
           <h2>No products to display</h2>
         </div>
       )}
-      <ProductLoadButtons role={props.role} onPrevClick={loadPrevItems} 
+      <LoadButtons role={props.role} onPrevClick={loadPrevItems} 
         onNextClick={loadNextItems}
         handleAddProductForm={handleAddProductForm}
         isEmpty={isEmptyRef.current}/>

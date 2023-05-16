@@ -1,13 +1,10 @@
 import { useEffect, useState } from 'react';
 import LoadingSpinner from '../Loading';
-import { useNavigate } from 'react-router-dom';
 import { fetchOrder } from './FetchOrder';
 
 function OrderDetails(props) {
   const [order, setOrder] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
-
-  const navigate = useNavigate();
 
   useEffect(() => {
     props.setPreviousSectionURL('/account');
@@ -15,19 +12,19 @@ function OrderDetails(props) {
   }, [props]);
 
   useEffect(() => {
-    if(props.validateToken(navigate, "/login")){
+    if(props.validateToken(props.navigate, "/login")){
       if(props.role==="MANAGER" && isLoading)
         fetchOrder(props.orderId, props.cookies, setOrder, props.handleMessage).then(()=>{
           setIsLoading(false);
         });
       else if(props.role!==""){
-        navigate(props.previousSectionURL);
+        props.navigate(props.previousSectionURL);
       }
     }
-  }, [props, navigate, isLoading]);
+  }, [props, isLoading]);
 
   return (
-    <div className='item'>
+    <>
       {isLoading ? (
         <LoadingSpinner/>
       ) : order && props.role === "MANAGER" ? (
@@ -57,7 +54,7 @@ function OrderDetails(props) {
       ) : (
         <h2>Order cannot be viewed</h2>
       )}
-    </div>
+    </>
   );
 }
 

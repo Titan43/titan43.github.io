@@ -14,7 +14,7 @@ export const fetchProducts = async (isEmptyRef, currentPage, setItems, loadPrevI
       if (data && data.length > 0) {
         setItems(data);
       } else {
-        handleMessage("Can't load more products(CODE 404)", 'error');
+        handleMessage("Can't load more items(CODE 404)", 'error');
         if(currentPage>0){
           loadPrevItems();
         }
