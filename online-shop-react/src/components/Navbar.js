@@ -26,7 +26,7 @@ const Navbar = (props) => {
           </button>
           }
           </div>
-          <nav className={showMenu? 'sidebar':'navmenu'}>
+          <nav className={showMenu? 'sidebar':'navmenu'} data-testid="sidebar">
             <ul>
               <li>
                 <Link to="/shop" className="btn">

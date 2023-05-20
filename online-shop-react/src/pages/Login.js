@@ -34,10 +34,11 @@ const Login = (props) => {
         <form onSubmit={onSubmit}>
 			    <label htmlFor="username">Username:</label>
 		    	<input type="text"
+            id='username'
             value={username} onChange={(event) => setUsername(event.target.value)}
             required/>
 			    <label htmlFor="password">Password:</label>
-			    <input type="password"
+			    <input id='password' type="password"
             value={password} onChange={(event) => setPassword(event.target.value)} 
             required/>
 			    <button type="submit" className="btn">Sign in</button>

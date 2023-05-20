@@ -35,7 +35,7 @@ const Notification = ({ message, type, notificationUpdateTime }) => {
       <p>{message}</p>
       {show && (
         <div className="timer">
-          <div ref={barRef} className="bar" />
+          <div ref={barRef} className="bar" data-testid="timer-bar"/>
         </div>
       )}
     </div>
