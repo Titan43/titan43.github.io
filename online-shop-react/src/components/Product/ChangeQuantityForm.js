@@ -19,7 +19,7 @@ const ChangeQuantityForm = (props) => {
           <form onSubmit={onSubmit} className='popup'>
                   <p>Current Quantity: {props.currentQuantity}</p>
                   <label htmlFor="quantity">Change quantity by:</label>
-                  <input type="number" step={1}
+                  <input type="number" step={1} id="quantity"
               value={quantity} onChange={(event) => setQuantity(event.target.value)}
               required/>
                   <button type="submit" className="btn">Change</button>

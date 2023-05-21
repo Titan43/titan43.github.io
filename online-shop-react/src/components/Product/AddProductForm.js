@@ -4,7 +4,7 @@ import '../../stylesheets/form.css';
 import { useState } from 'react';
 import { CreateProduct } from './CreateProduct';
 
-function AddProductForm(props) {
+const AddProductForm = (props) => {
   const [formData, setFormData] = useState({
     name: '',
     price: '',

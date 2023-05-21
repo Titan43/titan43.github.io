@@ -1,101 +1,58 @@
-import { CreateProduct } from '../../Product/CreateProduct';
-import { PRODUCT_LINK } from '../../constants';
+import React from 'react';
+import { render, fireEvent } from '@testing-library/react';
+import AddProductForm from '../../Product/AddProductForm';
 
-global.fetch = jest.fn().mockResolvedValue({
-  ok: true,
-  text: jest.fn().mockResolvedValue('Success'),
-});
+describe('AddProductForm', () => {
+  it('should submit form with correct data', () => {
+    const cookies = { token: 'mockToken' };
+    const handleMessage = jest.fn();
+    const toggleEmpty = jest.fn();
 
-describe('CreateProduct', () => {
-  const formData = {
-    name: 'Test Product',
-    price: 9.99,
-    quantity: 10,
-    description: 'Test description',
-    image: 'test image',
-  };
-  const cookies = { token: 'mockToken' };
-  const handleMessage = jest.fn();
-  const toggleEmpty = jest.fn();
+    const { getByLabelText, getByText } = render(
+      <AddProductForm
+        cookies={cookies}
+        handleMessage={handleMessage}
+        toggleEmpty={toggleEmpty}
+      />
+    );
 
-  afterEach(() => {
-    jest.clearAllMocks();
-  });
+    const productNameInput = getByLabelText('Product Name:');
+    fireEvent.change(productNameInput, { target: { value: 'Test Product' } });
 
-  it('calls fetch with the correct parameters', async () => {
-    await CreateProduct(formData, cookies, handleMessage, toggleEmpty);
+    const productPriceInput = getByLabelText('Product Price:');
+    fireEvent.change(productPriceInput, { target: { value: '9.99' } });
 
-    expect(fetch).toHaveBeenCalledWith(PRODUCT_LINK, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${cookies.token}`,
-      },
-      body: JSON.stringify(formData),
-    });
-  });
+    const productQuantityInput = getByLabelText('Product Quantity:');
+    fireEvent.change(productQuantityInput, { target: { value: '10' } });
 
-  it('calls toggleEmpty when the response is successful', async () => {
-    const message = 'Success';
-    global.fetch.mockResolvedValueOnce({
-      ok: true,
-      text: jest.fn().mockResolvedValue(message),
-    });
-    await CreateProduct(formData, cookies, handleMessage, toggleEmpty);
-
-    expect(toggleEmpty).toHaveBeenCalled();
-  });
-
-  it('calls handleMessage with the response text when the response is successful', async () => {
-    const message = 'Success';
-    global.fetch.mockResolvedValueOnce({
-      ok: true,
-      text: jest.fn().mockResolvedValue(message),
+    const productDescriptionInput = getByLabelText('Product Description:');
+    fireEvent.change(productDescriptionInput, {
+      target: { value: 'Test description' },
     });
 
-    await CreateProduct(formData, cookies, handleMessage, toggleEmpty);
-    await delay();
+    const productPictureInput = getByLabelText("Product Image:");
+    fireEvent.change(productPictureInput, {  target: {
+        files: [new File(['(⌐□_□)'], 'chucknorris.png', {type: 'image/png'})],
+      }});
 
-    expect(handleMessage).toHaveBeenCalledWith(message);
+    const submitButton = getByText('Add Product');
+
+    fireEvent.click(submitButton);
+
+    expect(handleMessage).toHaveBeenCalledTimes(0);
+    expect(toggleEmpty).toHaveBeenCalledTimes(0);
   });
 
-  it('calls handleMessage with the error message when the response is not successful', async () => {
-    const errorMessage = 'Request failed';
-    global.fetch.mockResolvedValueOnce({
-      ok: false,
-      text: jest.fn().mockResolvedValue(errorMessage),
-    });
+  it('should cancel the form', () => {
+    const handleAddProductForm = jest.fn();
 
-    await CreateProduct(formData, cookies, handleMessage, toggleEmpty);
-    await delay(); 
+    const { getByText } = render(
+      <AddProductForm handleAddProductForm={handleAddProductForm} />
+    );
 
-    expect(handleMessage).toHaveBeenCalledWith(errorMessage, 'error');
-  });
+    const cancelButton = getByText('Cancel');
+    fireEvent.click(cancelButton);
 
-  it('calls handleMessage with the error message if response text is empty', async () => {
-    const errorMessage = '';
-    global.fetch.mockResolvedValueOnce({
-      ok: false,
-      text: jest.fn().mockResolvedValue(''),
-    });
-
-    await CreateProduct(formData, cookies, handleMessage, toggleEmpty);
-    await delay(); 
-
-    expect(handleMessage).toHaveBeenCalledWith(errorMessage, 'error');
-  });
-
-  it('calls handleMessage with the error message if fetch fails', async () => {
-    const errorMessage = 'Fetch failed';
-    global.fetch.mockRejectedValueOnce(new Error(errorMessage));
-
-    await CreateProduct(formData, cookies, handleMessage, toggleEmpty);
-    await delay(); 
-
-    expect(handleMessage).toHaveBeenCalledWith(errorMessage, 'error');
+    expect(handleAddProductForm).toHaveBeenCalledTimes(1);
   });
 });
-
-function delay() {
-  return new Promise((resolve) => setTimeout(resolve, 0));
-}

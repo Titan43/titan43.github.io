@@ -19,10 +19,11 @@ const OrderProductForm = (props) => {
           <form onSubmit={onSubmit} className='popup'>
                   <p>Product name:{props.prodName}</p>
                   <p>Available:{props.currentQuantity}</p>
-                  <label htmlFor="quantity">Amount of products to orders:</label>
+                  <label htmlFor="quantity">Amount of products to order:</label>
                   <input type="number" step={1}
-              value={quantity} onChange={(event) => setQuantity(event.target.value)}
-              required/>
+                     id="quantity"
+                     value={quantity} onChange={(event) => setQuantity(event.target.value)}
+                      required/>
                   <button type="submit" className="btn">Order</button>
                   <button
                     type="button"
