@@ -1,30 +1,26 @@
 import { PRODUCT_LINK } from "../constants";
 
-export const CreateProduct = (formData, cookies,
+export const CreateProduct = async (formData, cookies,
      handleMessage, toggleEmpty) =>{
-    console.log(formData.image);
-    fetch(PRODUCT_LINK, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      'Authorization': `Bearer ${cookies.token}`,
-    },
-    body: JSON.stringify(formData),
-  })
-      .then((response) => {
-        if (response.ok) {
-          toggleEmpty();
-          return response.text();
-        } else {
-          return response.text().then((error) => {
-            throw new Error(error);
-          });
+    try{
+      const response = await fetch(PRODUCT_LINK, {
+        method: 'POST',
+        headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${cookies.token}`,
+        },
+        body: JSON.stringify(formData),
+      });
+      if (response.ok) {
+        const message = await response.text();
+        toggleEmpty();
+        handleMessage(message);
+      } else {
+          const error = await response.text()
+          throw new Error(error);
         }
-      })
-      .then((out) => {
-        handleMessage(out);
-      })
-      .catch((error) => {
+    }
+    catch(error){
         handleMessage(error.message, 'error');
-    });
+    }
 }
