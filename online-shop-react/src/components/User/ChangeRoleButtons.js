@@ -3,9 +3,9 @@ import '../../stylesheets/button.css';
 import { UserUpdate } from './UserUpdate';
 
 function ChangeRoleButtons({username, role, cookies, handleMessage, handleUserObtain}) {
-    const handleSetRole = (userRole) => {
-        UserUpdate(username, {role:userRole}, cookies, handleMessage).then(()=>{
-            handleUserObtain();})
+    const handleSetRole = async (userRole) => {
+        await UserUpdate(username, {role:userRole}, cookies, handleMessage);
+        handleUserObtain();
     }
     return (
       <div className="cart-total item">
