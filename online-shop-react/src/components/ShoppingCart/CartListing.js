@@ -25,9 +25,9 @@ const CartListing = (props) => {
   };
 
   return (
-    <div className="cart-items">
+    <div className="cart-items" >
       {!props.isLoading ? (
-        <>
+        <div data-testid="cart-items">
           {props.cartData.ordered_products.map((item) => (
           <CartItem
               item={item}
@@ -40,7 +40,7 @@ const CartListing = (props) => {
             handleCancel={handleCancel}
             handleConfirm={handleConfirm}
           />
-        </>
+        </div>
       ) : (
         <></>
       )}
