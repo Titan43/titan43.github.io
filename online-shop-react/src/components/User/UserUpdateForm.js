@@ -13,12 +13,11 @@ function UpdateUserForm(props) {
     sname: '',
   });
 
-  function handleSubmit(event) {
+  async function handleSubmit(event) {
     event.preventDefault();
-    UserUpdate(props.username, formData, 
-      props.cookies, props.handleMessage).then(()=>{
-      props.handleUserObtain();
-    });
+    await UserUpdate(props.username, formData, 
+      props.cookies, props.handleMessage);
+    props.handleUserObtain();
   }
 
   function handleInputChange(event) {

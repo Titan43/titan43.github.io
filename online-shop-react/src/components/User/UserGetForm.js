@@ -24,8 +24,9 @@ const UserGetForm = (props) => {
           <form onSubmit={onSubmit} className='popup'>
                   <label htmlFor="username">Enter username:</label>
                   <input type="text"
-              value={username} onChange={(event) => setUsername(event.target.value)}
-              required/>
+                    id="username"
+                    value={username} onChange={(event) => setUsername(event.target.value)}
+                    required/>
                   <button type="submit" className="btn">Get User</button>
                   <button
                     type="button"
