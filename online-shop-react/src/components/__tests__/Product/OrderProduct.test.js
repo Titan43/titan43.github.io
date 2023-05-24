@@ -46,7 +46,7 @@ describe('orderProduct', () => {
 
     await orderProduct(cookies, productId, quantity, handleMessage);
 
-    expect(global.fetch).toHaveBeenCalledWith("http://localhost:8080/api/v1/order/orderProduct/123?quantity=5", 
+    expect(global.fetch).toHaveBeenCalledWith(`${ORDER_LINK}/orderProduct/123?quantity=5`, 
         {"headers": {"Authorization": "Bearer mockToken", "Content-Type": "application/json"}, "method": "GET"});
 
     expect(handleMessage).toHaveBeenCalledWith('Error message', 'error');
@@ -63,7 +63,7 @@ describe('orderProduct', () => {
 
     await orderProduct(cookies, productId, quantity, handleMessage);
 
-    expect(global.fetch).toHaveBeenCalledWith("http://localhost:8080/api/v1/order/orderProduct/123?quantity=5",
+    expect(global.fetch).toHaveBeenCalledWith(`${ORDER_LINK}/orderProduct/123?quantity=5`,
      {"headers": {"Authorization": "Bearer mockToken", "Content-Type": "application/json"}, "method": "GET"});
 
     expect(handleMessage).toHaveBeenCalledWith('Network error', 'error');
